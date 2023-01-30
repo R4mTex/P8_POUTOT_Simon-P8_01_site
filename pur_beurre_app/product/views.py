@@ -10,18 +10,18 @@ class search_product(View):
 
     def get(self, request):
         question = request.GET.get('question', '')
-        question_parsed = Parser.script_for_parse(question)
+        question_parsed = Parser.parse(question)
 
         products = Product.objects.all()
 
         products_names = Product.objects.values_list('name')
         products_names_parsed = []
         for product_name in range(len(products_names)):
-            products_names_parsed.append(Parser.script_for_parse(products_names[product_name]))
+            products_names_parsed.append(Parser.parse(products_names[product_name]))
         
         if question_parsed in products_names_parsed:
             for product in range(len(products)):
-                if question_parsed == Parser.script_for_parse(products[product].name):
+                if question_parsed == Parser.parse(products[product].name):
                     product_values = {
                         'id': products[product].id,
                         'name': products[product].name,

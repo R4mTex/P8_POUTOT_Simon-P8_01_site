@@ -17,31 +17,29 @@ from django.contrib.auth.views import LoginView, LogoutView
 
 from django.contrib import admin
 from django.urls import path
-from authentication import views
 
 import authentication.views
-
-from product.views import search_product, favorite_product, product_detail
+import product.views
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.home, name='home'),
+    path("", authentication.views.home, name='home'),
     path("login/", LoginView.as_view(
                 template_name='authentication/login.html',
                 redirect_authenticated_user=True),
             name='login'), 
     path('logout/', LogoutView.as_view(), name='logout'),
     path("signup/", authentication.views.signup_page, name='signup'),
-    path("user-profile/<int:id>/", views.user_profile, name='user-profile'),
-    path("product-detail/<int:id>/", product_detail.as_view(
+    path("user-profile/<int:id>/", authentication.views.user_profile, name='user-profile'),
+    path("product-detail/<int:id>/", product.views.product_detail.as_view(
                 template_name='product/product_detail.html'), 
             name='product-detail'),
-    path("search-product/", search_product.as_view(
+    path("search-product/", product.views.search_product.as_view(
                 template_name='product/search_product.html'), 
             name='search-product'),
-    path("favorite-product/", favorite_product.as_view(
+    path("favorite-product/", product.views.favorite_product.as_view(
                 template_name='product/favorite_product.html'), 
             name='favorite-product'),
-    path("mentions-légales/", views.mentions_legals, name='mentions-légales'),
+    path("mentions-légales/", authentication.views.mentions_legals, name='mentions-légales'),
 ]
