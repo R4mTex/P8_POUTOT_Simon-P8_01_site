@@ -1,0 +1,217 @@
+{% extends 'product/base.html' %}
+
+{% block content %}
+
+
+<style>
+    #product_link {
+        border: 2px solid black;
+        border-radius: 10%;
+        padding: 15px;
+        background-color: rgb(250, 235, 215, 0.2);
+        color: #C45525;
+        font-family: "Open Sans", sans-serif;
+        text-shadow: 1px 0 black;
+        text-decoration: none;
+        min-width: 300px;
+    }
+    #section_product {
+        color: #C45525;
+        font-family: "Scope One", sans-serif;
+        text-shadow: 1px 0 black;
+    }
+    .card-top-home {
+        width: 100%;
+    }
+    #product_name {
+        font-family: "Scope One", sans-serif;
+        font-size: x-large;
+        color:#345A61;
+        font-weight: bold;
+        text-transform: capitalize;
+    }
+    table, th, td {
+        font-family: "Scope One", sans-serif;
+        text-shadow: 1px 0 black;
+        border: 1px solid black;
+        padding: 10px;
+        letter-spacing: 1px;
+    }
+    table {
+        font-size: medium;
+        border-collapse: collapse;
+    }
+    td {
+        color: #C45525;
+    }
+    [name='value'] {
+        text-align: center;
+        color: #345A61;
+    }
+    [name='under_value_name'] {
+        padding-left: 30px;
+    }
+    tr:hover, tr:nth-child(odd):hover {
+        background-color: #E8A75D;
+    }
+    tr:nth-child(odd) {
+        background-color: #f2f2f2;
+    }
+    #remy_10 {
+        display: flex;
+        position: relative;
+        bottom: 350px;
+        left: 300px;
+    }
+    [name='product_img'] {
+        min-width: 200px;
+        max-width: 550px;
+    }
+    #nutriscore {
+        margin-top: 40px;
+    }
+    #send {
+    font-family: "Scope One", sans-serif;
+    font-weight: bold;
+    font-size: small;
+    padding-top: 3px;
+    margin-top: 10px;
+
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card mt-4 border-dark shadow-lg rounded d-flex justify-content-center align-items-center flex-row">
+            <img class="card-top-home" src="/static/images/fond_produits.png" alt="Fond page produit détailé" height="500">
+            <div class="card-img-overlay d-inline-flex align-items-center justify-content-center">
+                <div class="text-center">
+                    <p id="product_name" style="text-transform: capitalize;">{{ product_detail.name }}</p>
+                    <img class="mb-4 border-dark shadow-lg rounded"
+                        name="product_img" src="{{ product_detail.img }}" alt="Fond page produit recherché" height="300"
+                        width="auto">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 d-flex flex-row" style="margin-top: 30px;" id="section_product">
+        <div class="col-4 d-flex justify-content-center" id="nutriscore">
+            <p style="font-size: x-large;">Nutriscore : <span id="nutriscore_value" style="font-size: xx-large; color: #E8A75D; 
+            text-transform: capitalize;">{{ product_detail.nutriscore }}</span></p>
+        </div>
+        <div class="col-4 d-flex justify-content-start align-items-center flex-column" style="margin-top: 20px;">
+            <div class="col-6 d-flex justify-content-center">
+                <a href="{{ product_detail.url }}" target="_blank" style="font-size: large;" id="product_link">Voir la fiche
+                    d'OpenFoodFacts</a>
+            </div>
+            <div class="col-6 d-flex justify-content-center">
+                <form action="" method="post" novalidate>
+                    {% csrf_token %}
+                    <button type="submit" name="submit" id="send" value="{{ product_detail.id }}"
+                        style="max-width: 150px; color:#345A61">Enregistrer ce produit dans vos favoris</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-4 d-flex align-items-center flex-column">
+            <table>
+                <tr>
+                    <th>Tableau nutritionnels</th>
+                    <th>Repères nutritionnels pour 100g</th>
+                </tr>
+                <tr>
+                    <td>Énergie</td>
+                    {% if nutriments.energy_kj_100g == None %}
+                    <td name="value">{{ nutriments.energy_kj_100g }}</td>
+                    {% else %}
+                    <td name="value">{{ nutriments.energy_kj_100g }} kj<br />({{ nutriments.energy_kcal_100g }}) kcal</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Matières grasses</td>
+                    {% if nutriments.fat_100g == None %}
+                    <td name="value">{{ nutriments.fat_100g }}</td>
+                    {% else %}
+                    <td name="value">{{ nutriments.fat_100g }} g</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td name="under_value_name">Acides gras saturés</td>
+                    {% if nutriments.saturated_fat_100g == None %}
+                    <td name="value">{{ nutriments.saturated_fat_100g }}</td>
+                    {% else %}
+                    <td name="value">{{ nutriments.saturated_fat_100g }} g</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Glucides</td>
+                    {% if nutriments.carbohydrates_100g == None %}
+                    <td name="value">{{ nutriments.carbohydrates_100g }}</td>
+                    {% else %}
+                    <td name="value">{{ nutriments.carbohydrates_100g }} g</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td name="under_value_name">Sucres</td>
+                    {% if nutriments.sugars_100g == None %}
+                    <td name="value">{{ nutriments.sugars_100g }}</td>
+                    {% else %}
+                    <td name="value">{{ nutriments.sugars_100g }} g</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Fibres alimentaires</td>
+                    {% if nutriments.fiber_100g == None %}
+                    <td name="value">{{ nutriments.fiber_100g }}</td>
+                    {% else %}
+                    <td name="value">{{ nutriments.fiber_100g }} g</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Protéines</td>
+                    {% if nutriments.proteins_100g == None %}
+                    <td name="value">{{ nutriments.proteins_100g }}</td>
+                    {% else %}
+                    <td name="value">{{ nutriments.proteins_100g }} g</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Sel</td>
+                    {% if nutriments.salt_100g == None %}
+                    <td name="value">{{ nutriments.salt_100g }}</td>
+                    {% else %}
+                    <td name="value">{{ nutriments.salt_100g }} g</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Alcool</td>
+                    {% if nutriments.alcohol_100g == None %}
+                    <td name="value">{{ nutriments.alcohol_100g }}</td>
+                    {% else %}
+                    <td name="value">{{ nutriments.alcohol_100g }} % vol</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Fruits‚ légumes‚ noix et<br />
+                        huiles de colza‚ noix et olive<br />
+                        (estimation par analyse de la <br />
+                        liste des ingrédients)</td>
+                    {% if nutriments.fruits_vegetables_nuts_estimate_from_ingredients_100g == None %}
+                    <td name="value">{{ nutriments.fruits_vegetables_nuts_estimate_from_ingredients_100g }}</td>
+                    {% else %}
+                    <td name="value">{{ nutriments.fruits_vegetables_nuts_estimate_from_ingredients_100g }} %</td>
+                    {% endif %}
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <img class="card border-dark shadow-lg rounded" src="\static\images\remy_10.jpg" height="500" id="remy_10">
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,191 @@
+{% extends 'product/base.html' %}
+
+{% block content %}
+
+<style>
+    [name='intro_sentence'] {
+        font-family: "Open Sans", sans-serif;
+        color: #DE9440;
+        text-shadow: 1px 0 black;
+        font-size: x-large;
+        word-spacing: 10px;
+        margin-top: 100px;
+    }
+    #substitutes_first_line {
+        margin-bottom: 150px;
+    }
+    #substitutes_lines {
+        margin-top: 150px;
+    }
+    [name='substitutes_img'] {
+        height: 260px;
+        width: 260px;
+        border: 1px solid black;
+    }
+    [name='substitutes_nutriscore'] {
+        font-family: "Scope One", sans-serif;
+        color: #C45525;
+        font-size: large;
+        font-weight: bold;
+        position: absolute;
+        margin-left: 250px;
+        margin-bottom: 190px;
+        padding: 3px 11px;
+        background-color: antiquewhite;
+        border: 1px solid black;
+        text-transform: capitalize;
+    }
+    [name='substitutes_name'] {
+        font-family: "Scope One", sans-serif;
+        font-size: large;
+        color: #DE9440;
+        text-shadow: 1px 0 black;
+        text-transform: capitalize;
+        max-width: 260px;
+    }
+    [name='fond_product_name'], #error_message {
+        font-family: "Scope One", sans-serif;
+        font-size: x-large;
+        color:#C45525;
+        text-shadow: 1px 0 black;
+        padding: 0px 15px;
+    }
+    #product_name {
+        text-transform: capitalize;
+        font-family: "Scope One", sans-serif;
+        font-size: x-large;
+        font-weight: bold;
+        color: #345A61;
+        padding: 0px 15px;  
+    }
+    .figure {
+        padding-top: 15px;
+        margin-bottom: 150px;
+    }
+    [name='save_text'] {
+        font-family: "Scope One", sans-serif;
+        font-size: medium;
+        margin: 0 0 -5px 10px;
+    }
+    #error_message {
+        padding: 225px 0;
+    }
+    [name='product_img'] {
+        min-width: 200px;
+        max-width: 550px;
+    }
+    .card-top-home {
+        width: 100%;
+    }
+    #send {
+        font-family: "Scope One", sans-serif;
+        font-weight: bold;
+        font-size: small;
+        padding-top: 3px;
+        margin: 8px 0 0 55px;
+        color:#345A61;
+    }
+</style>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card mt-4 border-dark shadow-lg rounded d-flex justify-content-center align-items-center flex-row">
+            <img class="card-top-home" src="/static/images/fond_produits.png" alt="Fond page résultat" height="500">
+            <div class="card-img-overlay d-inline-flex align-items-center justify-content-center">
+                <p name="fond_product_name">Aliment Recherché :</p>
+                <a href="{% url 'product-detail' product.id %}"><img class="mb-4 border-dark shadow-lg rounded" name="product_img" src="{{ product.img }}" alt="Fond page produit recherché" 
+                    height="350" width="auto"></a>
+                <div class="flex-column">
+                    <p id="product_name" style="max-width: 300px;">{{ product.name }}</p>
+                    <p name="fond_product_name" id="product_nutriscore" style="text-transform: capitalize;">Nutriscore : <span id="nutriscore_value" style="font-size: xx-large; color: #E8A75D; 
+                                text-transform: capitalize;">{{ product.nutriscore }}</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 d-inline-flex justify-content-center">
+        {% if substitutes|length != 0 %}
+        <p name="intro_sentence">Vous pouvez remplacer ce produit par :</p>
+        {% else %}
+        <div class="d-flex align-items-center flex-column">
+            <p name="intro_sentence">Il n'y a pas de substitut pour ce produit.</p>
+            <img class="card my-5 border-dark shadow-lg rounded" src="\static\images\remy-3.jpg">
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if substitutes|length != 0 %}
+<div class="row" id="substitutes_lines">
+    {% if substitutes|length <= 3 %}
+    <div class="col-12 d-flex flex-md-row align-items-center align-items-md-start flex-column" id="substitutes_first_line">
+        {% for substitute in substitutes %}
+            {% if substitutes|length == 1 %}
+            <div class="col-12 d-flex justify-content-center my-md-0">
+                <figure class="figure">
+                    <a href="{% url 'product-detail' substitute.id %}"><img src="{{ substitute.img }}" class="shadow-lg rounded" 
+                        name="substitutes_img"></a>
+                    <figcaption class="figure-caption text-center" name="substitutes_name">{{ substitute.name }}</figcaption>
+                    <form action="" method="post" novalidate>
+                        {% csrf_token %}
+                        <button type="submit" name="submit" id="send" value="{{ substitute.id }}" style="max-width: 150px;">Enregistrer ce produit dans vos favoris</button>
+                    </form>
+                </figure>
+                <p name="substitutes_nutriscore" class="rounded-circle">{{ substitute.nutriscore }}</p>
+            </div>
+            {% endif %}
+            {% if substitutes|length == 2 %}
+            <div class="col-6 d-flex justify-content-center my-md-0">
+                <figure class="figure">
+                    <a href="{% url 'product-detail' substitute.id %}"><img src="{{ substitute.img }}" class="shadow-lg rounded"
+                            name="substitutes_img"></a>
+                    <figcaption class="figure-caption text-center" name="substitutes_name">{{ substitute.name }}</figcaption>
+                    <form action="" method="post" novalidate>
+                        {% csrf_token %}
+                        <button type="submit" name="submit" id="send" value="{{ substitute.id }}" style="max-width: 150px;">Enregistrer ce produit dans vos favoris</button>
+                    </form>
+                </figure>
+                <p name="substitutes_nutriscore" class="rounded-circle">{{ substitute.nutriscore }}</p>
+            </div>
+            {% endif %}
+            {% if substitutes|length == 3 %}
+            <div class="col-4 d-flex justify-content-center my-md-0">
+                <figure class="figure">
+                    <a href="{% url 'product-detail' substitute.id %}"><img src="{{ substitute.img }}" class="shadow-lg rounded"
+                            name="substitutes_img"></a>
+                    <figcaption class="figure-caption text-center" name="substitutes_name">{{ substitute.name }}</figcaption>
+                    <form action="" method="post" novalidate>
+                        {% csrf_token %}
+                        <button type="submit" name="submit" id="send" value="{{ substitute.id }}" style="max-width: 150px;">Enregistrer ce produit dans vos favoris</button>
+                    </form>
+                </figure>
+                <p name="substitutes_nutriscore" class="rounded-circle">{{ substitute.nutriscore }}</p>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="col-12 d-flex flex-md-row flex-column flex-wrap align-items-center align-items-md-start" id="substitutes_first_line">
+        {% for substitute in substitutes %}
+        <div class="col-4 d-flex justify-content-center my-md-0">
+            <figure class="figure">
+                <a href="{% url 'product-detail' substitute.id %}"><img src="{{ substitute.img }}" class="shadow-lg rounded"
+                        name="substitutes_img"></a>
+                <figcaption class="figure-caption text-center" name="substitutes_name">{{ substitute.name }}</figcaption>
+                <form action="" method="post" novalidate> 
+                    {% csrf_token %}          
+                    <button type="submit" name="submit" id="send" value="{{ substitute.id }}" style="max-width: 150px;">Enregistrer ce produit dans vos favoris</button>
+                </form>
+            </figure>
+            <p name="substitutes_nutriscore" class="rounded-circle">{{ substitute.nutriscore }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+{% endblock %}

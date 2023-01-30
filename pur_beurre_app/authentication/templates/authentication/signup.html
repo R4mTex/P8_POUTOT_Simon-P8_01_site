@@ -1,0 +1,95 @@
+{% extends 'authentication/base.html' %}
+
+{% block content %}
+
+<style>
+    #section_login p {
+        font-size: large;
+    }
+
+    #section_login label {
+        color: #C45525;
+        font-family: "Open Sans", sans-serif;
+        text-shadow: 2px 0 black;
+    }
+
+    .errorlist {
+        color: #cc893b;
+        list-style-type: none;
+        font-family: "Scope One", sans-serif;
+        text-shadow: 2px 0 black;
+        font-size: medium;
+    }
+    
+    .helptext, ul:not(.errorlist) {
+        color: #E8A75D;
+        list-style-type: none;
+        font-family: "Scope One", sans-serif;
+        text-shadow: 2px 0 black;
+        font-size: medium;
+    }
+
+    .helptext {
+        display: flex;
+        align-items: center;
+    }
+
+    #id_username,
+    #id_email,
+    #id_password1,
+    #id_password2 {
+        position: relative;
+        bottom: 2px;
+        margin-left: 15px;
+        margin-bottom: 5px;
+        font-family: "Scope One", sans-serif;
+        font-weight: bold;
+        font-size: small;
+        color: #345A61;
+    }
+
+    #send_button {
+        font-family: "Scope One", sans-serif;
+        font-weight: bold;
+        font-size: small;
+        letter-spacing: 1px;
+        color: white;
+        margin-top: 10px;
+        border: 1px solid black;
+    }
+
+    input[value="Créer"] {
+        padding-top: 6px;
+    }
+
+    #create_account a:link {
+        text-decoration: none;
+        font-size: 15px;
+    }
+
+    #section_login {
+        border: 2px solid black;
+        border-radius: 5%;
+        padding: 20px;
+        background-color: rgb(250, 235, 215, 0.1);
+    }
+</style>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card mt-4 border-dark shadow-lg rounded">
+            <img class="card-top-home" src="/static/images/fond_signup.jpg" alt="Fond page création compte" height="900">
+            <div class="card-img-overlay d-flex align-items-center justify-content-center">
+                <form class="d-flex align-items-start flex-column" action="" method="post" novalidate id="section_login">    
+                    {{ form.as_p }}
+                    {% csrf_token %}
+                    <div class="col-12 d-flex justify-content-center">
+                        <input class="btn btn-primary btn-ms" type="submit" value="Créer" id="send_button">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

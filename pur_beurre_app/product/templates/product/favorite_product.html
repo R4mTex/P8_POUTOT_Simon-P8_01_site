@@ -1,0 +1,181 @@
+{% extends 'product/base.html' %}
+
+{% block content %}
+
+<style>
+    [name='intro_sentence'] {
+        font-family: "Open Sans", sans-serif;
+        color: #DE9440;
+        text-shadow: 1px 0 black;
+        font-size: x-large;
+        word-spacing: 10px;
+        margin-top: 100px;
+    }
+    #favorite_first_line {
+        margin-bottom: 150px;
+    }
+    #favorites_lines {
+        margin-top: 150px;
+    }
+    [name='favorites_img'] {
+        height: 260px;
+        width: 260px;
+        border: 1px solid black;
+    }
+    [name='favorites_nutriscore'] {
+        font-family: "Scope One", sans-serif;
+        color: #C45525;
+        font-size: large;
+        font-weight: bold;
+        position: absolute;
+        margin-left: 250px;
+        margin-bottom: 190px;
+        padding: 3px 11px;
+        background-color: antiquewhite;
+        border: 1px solid black;
+        text-transform: capitalize;
+    }
+    [name='favorites_name'] {
+        font-family: "Scope One", sans-serif;
+        font-size: large;
+        color: #DE9440;
+        text-shadow: 1px 0 black;
+        text-transform: capitalize;
+        max-width: 260px;
+    }
+    [name='fond_product_name'],
+    #error_message {
+        font-family: "Scope One", sans-serif;
+        font-size: x-large;
+        color: #DE9440;
+        text-shadow: 1px 0 black;
+        padding: 0px 15px;
+    }
+    #product_name {
+        text-transform: capitalize;
+    }
+    .figure {
+        padding-top: 15px;
+        margin-bottom: 150px;
+    }
+    [name='delete_text'] {
+        font-family: "Scope One", sans-serif;
+        font-size: medium;
+        margin: 0 0 -5px 10px;
+    }
+    #error_message {
+        padding: 225px 0;
+    }
+    [name='product_img'] {
+        min-width: 200px;
+        max-width: 550px;
+    }
+    .card-top-home {
+        width: 100%;
+    }
+    #send {
+        font-family: "Scope One", sans-serif;
+        font-weight: bold;
+        font-size: small;
+        padding-top: 3px;
+        margin: 8px 0 0 55px;
+        color:#345A61;
+    }
+</style>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card mt-4 border-dark shadow-lg rounded d-flex justify-content-center align-items-center flex-row">
+            <img class="card-top-home" src="/static/images/remy-4.jpg" alt="Fond page résultat" height="500">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 d-inline-flex justify-content-center">
+        {% if favorites|length != 0 %}
+        <p name="intro_sentence">Voici vos favoris :</p>
+        {% else %}
+        <div class="d-flex align-items-center flex-column">
+            <p name="intro_sentence">Vous n'avez pas de favoris.</p>
+            <img class="card my-5 border-dark shadow-lg rounded" src="\static\images\remy-3.jpg">
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if favorites|length != 0 %}
+<div class="row" id="favorites_lines">
+    {% if favorites|length <= 3 %} 
+    <div class="col-12 d-flex flex-md-row align-items-center align-items-md-start flex-column" id="favorite_first_line">
+        {% for favorite in favorites %}
+            {% if favorites|length == 1 %}
+            <div class="col-12 d-flex justify-content-center my-md-0">
+                <figure class="figure">
+                    <a href="{% url 'product-detail' favorite.id %}"><img src="{{ favorite.img }}"
+                            class="shadow-lg rounded" name="favorites_img"></a>
+                    <figcaption class="figure-caption text-center" name="favorites_name">{{ favorite.name }}
+                    </figcaption>
+                    <form action="" method="post" novalidate>
+                        {% csrf_token %}
+                        <button type="submit" name="submit" id="send" value="{{ favorite.id }}" style="max-width: 150px;">Supprimer ce produit de vos favoris</button>
+                    </form>
+                </figure>
+                <p name="favorites_nutriscore" class="rounded-circle">{{ favorite.nutriscore }}</p>
+            </div>
+            {% endif %}
+            {% if favorites|length == 2 %}
+            <div class="col-6 d-flex justify-content-center my-md-0">
+                <figure class="figure">
+                    <a href="{% url 'product-detail' favorite.id %}"><img src="{{ favorite.img }}"
+                            class="shadow-lg rounded" name="favorites_img"></a>
+                    <figcaption class="figure-caption text-center" name="favorites_name">{{ favorite.name }}
+                    </figcaption>
+                    <form action="" method="post" novalidate>
+                        {% csrf_token %}
+                        <button type="submit" name="submit" id="send" value="{{ favorite.id }}" style="max-width: 150px;">Supprimer ce produit de vos favoris</button>
+                    </form>
+                </figure>
+                <p name="favorites_nutriscore" class="rounded-circle">{{ favorite.nutriscore }}</p>
+            </div>
+            {% endif %}
+            {% if favorites|length == 3 %}
+            <div class="col-4 d-flex justify-content-center my-md-0">
+                <figure class="figure">
+                    <a href="{% url 'product-detail' favorite.id %}"><img src="{{ favorite.img }}"
+                            class="shadow-lg rounded" name="favorites_img"></a>
+                    <figcaption class="figure-caption text-center" name="favorites_name">{{ favorite.name }}
+                    </figcaption>
+                    <form action="" method="post" novalidate>
+                        {% csrf_token %}
+                        <button type="submit" name="submit" id="send" value="{{ favorite.id }}" style="max-width: 150px;">Supprimer ce produit de vos favoris</button>
+                    </form>
+                </figure>
+                <p name="favorites_nutriscore" class="rounded-circle">{{ favorite.nutriscore }}</p>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="col-12 d-flex flex-md-row flex-column flex-wrap align-items-center align-items-md-start" id="favorite_first_line">
+        {% for favorite in favorites %}
+        <div class="col-4 d-flex justify-content-center my-md-0">
+            <figure class="figure">
+                <a href="{% url 'product-detail' favorite.id %}"><img src="{{ favorite.img }}" class="shadow-lg rounded"
+                        name="favorites_img"></a>
+                <figcaption class="figure-caption text-center" name="favorites_name">{{ favorite.name }}</figcaption>
+                <form action="" method="post" novalidate>
+                    {% csrf_token %}
+                    <button type="submit" name="submit" id="send" value="{{ favorite.id }}" style="max-width: 150px;">Supprimer ce produit de vos favoris</button>
+                </form>
+            </figure>
+            <p name="favorites_nutriscore" class="rounded-circle">{{ favorite.nutriscore }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+{% endblock %}

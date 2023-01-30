@@ -1,0 +1,139 @@
+{% extends 'authentication/base.html' %}
+
+{% block content %}
+
+<style>
+    #mentions_legales {
+        border: 1px solid black;
+        font-family: "Scope One", sans-serif;
+        font-size: large;
+        margin-top: 15px;
+        padding: 30px 40px 30px 40px;
+        background-color: rgb(232, 167, 93, 0.30);
+    }
+    #mentions_title {
+        font-family: "Open Sans", sans-serif;
+        padding-bottom: 30px;
+    }
+    [name="list"] {
+        padding-left: 50px;
+    }
+</style>
+
+<div class="row" id="mentions_legales">
+    <div class="col-12">
+        <h1 id="mentions_title">Mentions légales pour un site internet</h1>
+        <p>
+            Ce modèle de <span style="font-weight: bold;">mentions légales</span> regroupe les informations qu'un site internet
+            doit obligatoirement mettre à disposition de
+            ses utilisateurs.
+        </p>
+        <p>
+            <span style="font-weight: bold;">Quelles sont les mentions légales d'un site internet ?</span><br>
+        
+            Il s'agit des informations exigées par la loi pour tout site internet. Elles doivent être accessibles sur une page
+            dédiée, et regroupent principalement les informations et les coordonnées de <span
+                style="font-weight: bold;">l'éditeur</span> et de <span style="font-weight: bold;">l'hébergeur</span> du site.<br>
+        
+            Bon à savoir : pour les <span style="font-weight: bold;">sites non professionnels</span>, seules les informations de
+            l'hébergeur sont obligatoires.
+        </p>
+        <p>
+            <span style="text-decoration: underline;">Informations de l'éditeur</span><br>
+        
+            L'éditeur est le <span style="font-weight: bold;">propriétaire du site</span>. C'est lui qui exploite et contrôle le
+            contenu du site, et en assume la
+            responsabilité. Les mentions légales doivent indiquer :<br>
+        
+            Pour une <span style="font-weight: bold;">personne physique</span> (entreprise individuelle, autoentrepreneur) :<br>
+            <ul name="list">
+                <li>Le nom, prénoms, domicile, le numéro de téléphone et email ;</li>
+                <li>En cas d'inscription au registre du commerce et des sociétés (RCS) ou au répertoire des métiers (RM), le numéro
+                d'inscription.</li>
+            </ul>
+            Pour une <span style="font-weight: bold;">personne morale</span> (société ou association) :<br>
+            <ul name="list">
+                <li>La dénomination (nom officiel), l'adresse du siège social, le numéro de téléphone et email ;</li>
+                <li>Pour les entreprises inscrites au RCS ou au RM, le numéro d'inscription et le capital social ;</li>
+                <li>Le nom du <span style="font-weight: bold;">directeur de la publication</span>, c'est-à-dire la personne qui assume
+                la responsabilité pénale de tout ce qui est
+                publié sur le site. En principe, il s'agit du représentant légal (dirigeant) de la société ou association.</li>
+            </ul>
+            Cas particuliers :<br>
+            <ul name="list">
+                <li>Pour les <span style="font-weight: bold;">activités soumises à la TVA</span> : le numéro de TVA intracommunautaire ;</li>
+                <li>Pour les <span style="font-weight: bold;">activités soumises à autorisation administrative</span> : le nom et
+                l'adresse de l'autorité ayant délivré
+                l'autorisation ;</li>
+                <li>Pour les <span style="font-weight: bold;">professions réglementées</span> : la référence aux règles professionnelles
+                applicables, le titre professionnel, l'État
+                dans lequel il a été délivré ainsi que le nom de l'ordre ou de l'organisme professionnel.</li>
+            </ul>
+        </p>
+        <p>
+            <span style="text-decoration: underline;">Informations de l'hébergeur</span><br>
+        
+            L'hébergeur est le <span style="font-weight: bold;">prestataire de service</span> chargé du stockage du site et de
+            le rendre accessible en ligne. Les mentions
+            légales doivent indiquer :<br>
+            <ul name="list">
+                <li>Son nom ou dénomination sociale ;</li>
+                <li>Son adresse et son numéro de téléphone.</li>
+            </ul>      
+        </p>
+        <p>
+            <span style="text-decoration: underline;">Autres informations</span><br>
+        
+            Les mentions légales permettent de rappeler aux utilisateurs que le site et son contenu sont <span
+                style="font-weight: bold;">protégés par le droit de la
+                propriété intellectuelle</span>, principalement le <span style="font-weight: bold;">droit d'auteur</span>.<br>
+        
+            La page des mentions légales peut également contenir les <span style="font-weight: bold;">informations sur la
+                collecte des données personnelles</span> des
+            utilisateurs, exigées par le <span style="font-weight: bold;">règlement européen général de protection des données
+                (RGPD)</span>. Toutefois, il est généralement
+            recommandé de regrouper ces informations sur une page dédiée : nous proposons pour cela un modèle de Politique de
+            confidentialité.<br>
+        
+            Bon à savoir : en plus des mentions légales, les <span style="font-weight: bold;">sites marchands</span>
+            (e-commerce) doivent publier <span style="font-weight: bold;">des conditions générales
+                de vente (CGV)</span>. Nous proposons pour cela un modèle de Conditions générales de site internet (CGU/CGV).<br><br>
+        
+        
+            <span style="font-weight: bold;">Comment utiliser ce document ?</span><br>
+        
+            Une fois complétées, les mentions légales doivent être <span style="font-weight: bold;">publiées et accessibles sur
+                une page dédiée</span> (le plus souvent, via
+            un lien en haut ou au pied de la page d'accueil).<br><br>
+        
+        
+            <span style="font-weight: bold;">Droit applicable</span><br>
+        
+            <a href="" style="color: black;">Règlement (UE) 2016/679 (RGPD)<br>
+        
+                Loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique<br>
+        
+                Loi n° 78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés</a><br><br>
+        
+        
+            <span style="font-weight: bold;">Aide d'un avocat</span><br>
+        
+            Vous pourrez choisir de <span style="font-weight: bold;">consulter un avocat si vous avez besoin d'aide</span>.<br>
+        
+            L'avocat pourra répondre à vos questions ou vous aider dans vos démarches. Cette option vous sera proposée à la fin
+            du
+            document.<br><br>
+        
+        
+            <span style="font-weight: bold;">Comment modifier le modèle ?</span><br>
+        
+            Vous remplissez un formulaire. Le document se rédige sous vos yeux au fur et à mesure de vos réponses.
+        
+            A la fin, vous le recevez aux formats <span style="font-weight: bold;">Word et PDF</span>. Vous pouvez le <span
+                style="font-weight: bold;">modifier</span> et le <span style="font-weight: bold;">réutiliser</span>.
+        </p>
+        </p>
+    </div>
+</div>
+
+{% endblock %}

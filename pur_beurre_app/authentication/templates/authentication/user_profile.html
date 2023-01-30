@@ -1,0 +1,63 @@
+{% extends 'authentication/base.html' %}
+
+{% block content %}
+
+<style>
+    .info {
+        color: #C45525;
+        font-family: "Open Sans", sans-serif;
+        font-size: medium;
+        text-shadow: 1px 0 black;
+    }
+    .box {
+        border: 2px solid black;
+        border-radius: 10%;
+        padding: 20px;
+        background-color: rgb(250, 235, 215, 0.2);
+    }
+    #user_info {
+        font-size: x-large;
+    }
+    .value_info {
+        color: #E8A75D;
+    }
+    #email {
+        color: #C45525;
+        font-size: large;
+        font-family: "Open Sans", sans-serif;
+        text-shadow: 1px 0 black;
+        text-decoration: none;
+        margin: 50px 0 100px 0;
+    }
+</style>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card mt-4 border-dark shadow-lg rounded">
+            <img class="card-top-home" src="/static/images/fond_page_user_profile.jpg" alt="Fond page profil" height="500">
+            <div class="card-img-overlay d-inline-flex align-items-center justify-content-center">
+                <div class="info box" id="user_info">
+                    <p>Nom d'utilisateur : <span class="value_info">{{ user.username }}</span></p>
+                </div>
+            </div>
+            <div class="card-img-overlay d-inline-flex align-items-start justify-content-end">
+                <div class="info box">
+                    <p>Dernière connexion : <span class="value_info">{{ user.last_login }}</span></p>
+                    <p>Date de création du profil : <span class="value_info">{{ user.date_joined }}</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 d-flex justify-content-center">
+        <p class="box" id="email">Email : <span class="value_info">{{ user.email }}</span></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 d-flex justify-content-center">
+        <img class="card mb-5 border-dark shadow-lg rounded" src="\static\images\colette-9.jpg">
+    </div>
+</div>
+{% endblock %}

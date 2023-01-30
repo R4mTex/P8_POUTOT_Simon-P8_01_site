@@ -1,0 +1,159 @@
+{% extends 'authentication/base.html' %}
+
+{% block content %}
+
+<style>
+    #section_search {
+        text-shadow: 2px 0 black;
+        border: 2px solid black;
+        border-radius: 10%;
+        padding: 20px;
+        background-color: rgb(250, 235, 215, 0.2);
+    }
+    .card-title {
+        font-family: "Open Sans", sans-serif;
+        color: #DE9440;
+    }
+    .card-subtitle {
+        font-family: "Open Sans", sans-serif;
+        color: #C45525;
+    }   
+    #form_input_product,
+    ::placeholder,
+    .figure-caption,
+    #contact {
+        font-family: "Scope One", sans-serif;
+        font-weight: bold;
+        font-size: small;
+        color: #345A61;
+    }
+    #search_button {
+        font-family: "Scope One", sans-serif;
+        font-weight: bold;
+        font-size: small;
+        color: white;
+        letter-spacing: 1px;
+        border: 1px solid black;
+    }
+    #description h2 {
+        font-family: "Open Sans", sans-serif;
+        color: #C45525;
+        text-decoration: underline;
+        font-size: x-large;
+        padding-bottom: 10px;
+    }
+    #description p {
+        font-family: "Scope One", sans-serif;
+        color: #E8A75D;
+        font-size: large;
+        text-shadow: 0 0.02em black;
+    }
+    input[value="Chercher"] {
+        padding-top: 6px;
+    }
+    #title_contact {
+        margin-top: 20px;
+    }
+    #paragraphe_contact {
+        font-size: medium;
+    }
+    #img_email {
+        margin-left: 12px;
+    }
+    #contact {
+        background-color: #E8A75D;
+        opacity: 0.8;
+    }
+</style>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card mt-4 border-dark shadow-lg rounded">
+            <img class="card-top-home" src="static/images/fond_page_accueil.jpg" alt="Fond page accueil" height="900">
+            <div class="card-img-overlay d-inline-flex align-items-center justify-content-center">
+                <div class="d-flex align-items-center justify-content-center flex-column" id="section_search">
+                    <h1 class="card-title">Du gras, oui, mais de qualité !</h1>
+                    <h2 class="card-subtitle">Trouvez un produit de substitution pour ceux que vous consommez tous les jours.</h2>
+                    <form class="form" role="form" action="{% url 'search-product' %}">
+                        <input class="mt-5 p-2" type="search" name="question" id="form_input_product" value=""
+                            placeholder="Recherchez un produit de substitution." size="40" autofocus required>
+                        <input class="btn btn-primary btn-ms" type="submit" value="Chercher" id="search_button">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="text-center mt-5" id="description">
+            <h2>Colette et Rémy</h2>
+            <p class="mt-4" id="start_description"><strong>De la ratatouille aux croissants</strong><br>
+                Pur Beurre est l'initiative de deux amoureux de la gastronomie française, Colette Tatou et Rémy, que vous
+                avez déjà
+                certainement rencontrés dans notre excellent restaurant Ratatouille.</p>
+            <p id="colette_descritpion"><strong>Colette Tatou :</strong></br> "Nous aimons tous manger, surtout en France !
+                Personnellement, une baguette fraîche, du bon fromage de
+                chèvre et un bon vin rouge me suffisent amplement. Comme tout le monde, je fais mes courses au supermarché.
+                Mais petit à
+                petit je me suis rendue compte, surtout lorsque nous avons ouvert le restaurant, que je pouvais remplacer
+                les produits
+                aseptisés que j'avais l'habitude d'acheter par de bons produits du terroir Et souvent pour le même prix !"
+            </p>
+            <p id="remy_description"><strong>Remy :</strong></br> "Pour ma part je me rendais déjà dans bien des magasins
+                car j'aime beaucoup me balader, surtout dans les caves et
+                les cuisines. Je connaissais par coeur le contenu des boutiques bio (dont je raffole) ainsi que les
+                ingrédients de tous
+                les aliments vendus. Lorsque Colette m'a demandé si elle pouvait remplacer son Nutella matinal par un
+                aliment plus sain,
+                je savais tout de suite où le trouver. L'idée de Pur Beurre était née !"</p>
+        </div>
+
+        <div class="d-flex justify-content-md-center flex-md-row flex-column">
+            <div class="col-12 col-md-4 d-flex justify-content-center mt-5">
+                <figure class="figure" id="colette_picture">
+                    <img class="figure-img " height="300" width="110" src="static/images/colette_id.png"
+                        alt="Colette photo identité">
+                    <figcaption class="figure-caption text-center">Colette</figcaption>
+                </figure>
+            </div>
+            <div class="col-12 col-md-4 d-flex justify-content-center mt-5">
+                <figure class="figure" id="remy_picture">
+                    <img class="figure-img" height="300" width="200" src="static/images/remy_id.jpg"
+                        alt="Rémy photo identité">
+                    <figcaption class="figure-caption text-center">Rémy</figcaption>
+                </figure>
+            </div>
+        </div>
+        <div id="border_description"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex flex-column" id="contact">
+            <div class="text-center mb-3">
+                <h2 id="title_contact">Contactez-nous !</h2>
+                <p id="paragraphe_contact">Vous pouvez nous joindre par téléphone ou par email aux coordonnées fournies ci-dessous.</p>
+            </div>
+            <div class="d-flex flex-md-row justify-content-md-around flex-column">
+                <div class="d-flex justify-content-center">
+                    <figure class="figure" id="img_phone">
+                        <img class="figure-img" src="static/images/phone_logo.png" alt="Logo téléphone">
+                        <figcaption class="figure-caption text-center">06 ** ** ** **</figcaption>
+                    </figure>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <figure class="figure" id="email">
+                        <img class="figure-img" src="static/images/email_logo.png" alt="Logo email" id="img_email">
+                        <figcaption class="figure-caption text-center">mail@mail.com</figcaption>
+                    </figure>     
+                </div>
+            </div>
+            <div id="border_contact"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
