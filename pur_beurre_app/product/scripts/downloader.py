@@ -66,3 +66,7 @@ class Downloader:
             }
             products.append(products_structure)
         return products
+
+    def main_function():
+        response = Downloader.get_products()
+        return response

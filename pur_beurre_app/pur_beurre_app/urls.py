@@ -23,7 +23,7 @@ import product.views
 
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("admin/", admin.site.urls, name='admin'),
     path("", authentication.views.home, name='home'),
     path("login/", LoginView.as_view(
                 template_name='authentication/login.html',
@@ -41,5 +41,5 @@ urlpatterns = [
     path("favorite-product/", product.views.favorite_product.as_view(
                 template_name='product/favorite_product.html'), 
             name='favorite-product'),
-    path("mentions-légales/", authentication.views.mentions_legals, name='mentions-légales'),
+    path("mentions-legals/", authentication.views.mentions_legals, name='mentions-legals'),
 ]

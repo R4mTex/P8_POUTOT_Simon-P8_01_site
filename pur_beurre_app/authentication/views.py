@@ -49,4 +49,4 @@ def user_profile(request, id):
     return render(request, 'authentication/user_profile.html', context={'user': user})
 
 def mentions_legals(request):
-    return render(request, 'authentication/mentions_legales.html')
+    return render(request, 'authentication/mentions_legals.html')
