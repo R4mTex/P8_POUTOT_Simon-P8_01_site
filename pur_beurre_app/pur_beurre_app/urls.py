@@ -30,15 +30,19 @@ urlpatterns = [
                 redirect_authenticated_user=True),
             name='login'), 
     path('logout/', LogoutView.as_view(), name='logout'),
-    path("signup/", authentication.views.signup_page, name='signup'),
-    path("user-profile/<int:id>/", authentication.views.user_profile, name='user-profile'),
-    path("product-detail/<int:id>/", product.views.product_detail.as_view(
+    path("signup/", authentication.views.Signup.as_view(
+                template_name='authentication/signup.html'
+            ), name='signup'),
+    path("user-profile/<int:id>/", authentication.views.User_profile.as_view(
+            template_name='authentication/user_profile.html'
+        ), name='user-profile'),
+    path("product-detail/<int:id>/", product.views.Product_detail.as_view(
                 template_name='product/product_detail.html'), 
             name='product-detail'),
-    path("search-product/", product.views.search_product.as_view(
+    path("search-product/", product.views.Search_product.as_view(
                 template_name='product/search_product.html'), 
             name='search-product'),
-    path("favorite-product/", product.views.favorite_product.as_view(
+    path("favorite-product/", product.views.Favorite_product.as_view(
                 template_name='product/favorite_product.html'), 
             name='favorite-product'),
     path("mentions-legals/", authentication.views.mentions_legals, name='mentions-legals'),

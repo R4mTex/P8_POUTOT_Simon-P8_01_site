@@ -3,11 +3,15 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 from product.models import Product, Favorite
 from product.scripts.parser import Parser
+from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # Create your views here.
-class search_product(View):
+class Search_product(LoginRequiredMixin, View):
     template_name = 'product/search_product.html'
-
+    login_url = settings.LOGIN_URL
+    
     def get(self, request):
         question = request.GET.get('question', '')
         question_parsed = Parser.parse(question)
@@ -91,9 +95,10 @@ class search_product(View):
         else:
             return redirect('favorite-product')
 
-class product_detail(View):
+class Product_detail(LoginRequiredMixin, View):
     template_name = 'product/product_detail.html'
-
+    login_url = settings.LOGIN_URL
+    
     def get(self, request, id):
         product_detail = Product.objects.get(id=id)
         product_detail_nutriments = product_detail.nutriments
@@ -145,9 +150,10 @@ class product_detail(View):
         else:
             return redirect('favorite-product')
 
-class favorite_product(View):
+class Favorite_product(LoginRequiredMixin, View):
     template_name = 'product/favorite_product.html'
-
+    login_url = settings.LOGIN_URL
+    
     def get(self, request):
         all_favorites = Favorite.objects.all()
 

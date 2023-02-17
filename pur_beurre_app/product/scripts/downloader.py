@@ -2,8 +2,8 @@ import requests
 from tqdm import tqdm
 from json import JSONDecodeError
 
-class Downloader:
 
+class Downloader:
     def get_products(nb_pages, nb_products):
         data_products = []
 
@@ -67,6 +67,4 @@ class Downloader:
             products.append(products_structure)
         return products
 
-    def main_function():
-        response = Downloader.get_products()
-        return response
+Downloader.get_products(1, 1)

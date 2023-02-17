@@ -3,11 +3,11 @@
 {% block content %}
 
 <style>
-    #section_login p {
+    #section_signup p {
         font-size: large;
     }
 
-    #section_login label {
+    #section_signup label {
         color: #C45525;
         font-family: "Open Sans", sans-serif;
         text-shadow: 2px 0 black;
@@ -67,7 +67,7 @@
         font-size: 15px;
     }
 
-    #section_login {
+    #section_signup {
         border: 2px solid black;
         border-radius: 5%;
         padding: 20px;
@@ -80,9 +80,9 @@
         <div class="card mt-4 border-dark shadow-lg rounded">
             <img class="card-top-home" src="/static/images/fond_signup.jpg" alt="Fond page création compte" height="900">
             <div class="card-img-overlay d-flex align-items-center justify-content-center">
-                <form class="d-flex align-items-start flex-column" action="" method="post" novalidate id="section_login">    
-                    {{ form.as_p }}
-                    {% csrf_token %}
+                <form class="d-flex align-items-start flex-column" action="" method="post" novalidate id="section_signup">
+                    {% csrf_token %}    
+                    {{ form.as_p }}    
                     <div class="col-12 d-flex justify-content-center">
                         <input class="btn btn-primary btn-ms" type="submit" value="Créer" id="send_button">
                     </div>
