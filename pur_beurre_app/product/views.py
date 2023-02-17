@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class Search_product(LoginRequiredMixin, View):
     template_name = 'product/search_product.html'
     login_url = settings.LOGIN_URL
-    
+
     def get(self, request):
         question = request.GET.get('question', '')
         question_parsed = Parser.parse(question)
@@ -22,7 +22,7 @@ class Search_product(LoginRequiredMixin, View):
         products_names_parsed = []
         for product_name in range(len(products_names)):
             products_names_parsed.append(Parser.parse(products_names[product_name]))
-        
+
         if question_parsed in products_names_parsed:
             for product in range(len(products)):
                 if question_parsed == Parser.parse(products[product].name):
@@ -35,12 +35,12 @@ class Search_product(LoginRequiredMixin, View):
                         'nutriscore': products[product].nutriscore,
                     }
                     substitutes = []
-                    for product in range(len(products)): 
+                    for product in range(len(products)):
                         try:
                             if ((product_values['nutriscore'] > products[product].nutriscore
                                 or product_values['nutriscore'] == 'a')
                                 and product_values['name'] != products[product].name
-                                and product_values['category'] == products[product].category.all()[0].name):
+                                    and product_values['category'] == products[product].category.all()[0].name):
                                 substitute = {
                                     'id': products[product].id,
                                     'name': products[product].name,
@@ -53,11 +53,11 @@ class Search_product(LoginRequiredMixin, View):
                         except IndexError:
                             continue
 
-            if len(substitutes) > 6: 
+            if len(substitutes) > 6:
                 substitutes = random.sample(substitutes, 6)
 
-            return render(request, self.template_name, context={'product': product_values, 
-                'substitutes': substitutes,})
+            return render(request, self.template_name, context={'product': product_values,
+                                                                'substitutes': substitutes, })
         else:
             return redirect('search-product')
 
@@ -95,10 +95,11 @@ class Search_product(LoginRequiredMixin, View):
         else:
             return redirect('favorite-product')
 
+
 class Product_detail(LoginRequiredMixin, View):
     template_name = 'product/product_detail.html'
     login_url = settings.LOGIN_URL
-    
+
     def get(self, request, id):
         product_detail = Product.objects.get(id=id)
         product_detail_nutriments = product_detail.nutriments
@@ -113,7 +114,7 @@ class Product_detail(LoginRequiredMixin, View):
             'proteins_100g': product_detail_nutriments.get('proteins_100g', None),
             'salt_100g': product_detail_nutriments.get('salt_100g', None),
             'alcohol_100g': product_detail_nutriments.get('alcohol_100g', None),
-            'fruits_vegetables_nuts_estimate_from_ingredients_100g': 
+            'fruits_vegetables_nuts_estimate_from_ingredients_100g':
             product_detail_nutriments.get('fruits-vegetables-nuts-estimate-from-ingredients_100g', None),
         }
         return render(request, self.template_name, {'product_detail': product_detail, 'nutriments': nutriments})
@@ -150,10 +151,11 @@ class Product_detail(LoginRequiredMixin, View):
         else:
             return redirect('favorite-product')
 
+
 class Favorite_product(LoginRequiredMixin, View):
     template_name = 'product/favorite_product.html'
     login_url = settings.LOGIN_URL
-    
+
     def get(self, request):
         all_favorites = Favorite.objects.all()
 
@@ -169,17 +171,17 @@ class Favorite_product(LoginRequiredMixin, View):
             }
             favorites.append(favorite_product)
 
-        if len(favorites) > 6: 
+        if len(favorites) > 6:
             favorites = random.sample(favorites, 6)
 
-        return render(request, self.template_name, context={'favorites': favorites,})
+        return render(request, self.template_name, context={'favorites': favorites, })
 
     def post(self, request):
         favorite_id = int(request.POST.get("submit"))
         Favorite.objects.filter(product=favorite_id).delete()
 
         all_favorites = Favorite.objects.all()
-        
+
         favorites = []
         for favorite in range(len(all_favorites)):
             favorite_product = {
@@ -192,4 +194,4 @@ class Favorite_product(LoginRequiredMixin, View):
             }
             favorites.append(favorite_product)
 
-        return render(request, self.template_name, context={'favorites': favorites,})
+        return render(request, self.template_name, context={'favorites': favorites, })

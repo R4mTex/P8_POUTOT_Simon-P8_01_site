@@ -4,6 +4,7 @@ from product.models import Product, Category, Favorite
 from django.db import IntegrityError
 from tqdm import tqdm
 
+
 class Command(BaseCommand):
     help = 'Create products'
 
@@ -29,7 +30,7 @@ Download Products And Categories From OpenFoodFacts In Progress.\n""")
 
         print("\nAdd Products And Categories To The Current Database In Progress.\n")
 
-        for product in tqdm(range(len(products_downloaded))) :
+        for product in tqdm(range(len(products_downloaded))):
             new_category = Category()
             new_category.name = products_downloaded[product]['category']
             new_product = Product()

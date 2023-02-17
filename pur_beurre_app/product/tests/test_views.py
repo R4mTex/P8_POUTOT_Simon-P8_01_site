@@ -2,7 +2,7 @@ import pytest
 
 from django.urls import reverse, resolve
 from django.test import Client
-from product.models import Product, Category, Favorite
+from product.models import Product, Category
 from authentication.models import User
 from pytest_django.asserts import assertTemplateUsed
 from product.views import Favorite_product
@@ -12,34 +12,35 @@ from product.views import Favorite_product
 def test_get_product_detail_view():
     client = Client()
     '''login requirement'''
-    User.objects.create_user(username = 'TestUser',
-                             email = '',
-                             password = '',
+    User.objects.create_user(username='TestUser',
+                             email='',
+                             password='',
                              )
     client.login(username='TestUser', email='', password='')
 
-    Product.objects.create(name = 'TestProduct',
-                           description = '',
-                           store = '',
-                           url = '',
-                           img = '',
-                           nutriscore = '',
-                           nutriments = {},
+    Product.objects.create(name='TestProduct',
+                           description='',
+                           store='',
+                           url='',
+                           img='',
+                           nutriscore='',
+                           nutriments={},
                            )
 
-    path = reverse('product-detail', kwargs={'id':1})
+    path = reverse('product-detail', kwargs={'id': 1})
     response = client.get(path)
 
     assert response.status_code == 200
     assertTemplateUsed(response, "product/product_detail.html")
 
+
 @pytest.mark.django_db
 def test_post_product_detail_view():
     client = Client()
     '''login requirement'''
-    User.objects.create_user(username = 'TestUser',
-                             email = '',
-                             password = '',
+    User.objects.create_user(username='TestUser',
+                             email='',
+                             password='',
                              )
     client.login(username='TestUser', email='', password='')
 
@@ -57,21 +58,22 @@ def test_post_product_detail_view():
     new_product.save()
     new_category = new_product.category.create(name=new_category.name)
 
-    path = reverse('product-detail', kwargs={'id':1})
+    path = reverse('product-detail', kwargs={'id': 1})
     response = client.post(path)
 
     assert response.status_code == 302
     assert response.url == reverse('favorite-product')
 
-#--------------------------------------------------------------------------------------------#
+# -------------------------------------------------------------------------------------------- #
+
 
 @pytest.mark.django_db
 def test_get_search_product_view():
     client = Client()
     '''login requirement'''
-    User.objects.create_user(username = 'TestUser',
-                             email = '',
-                             password = '',
+    User.objects.create_user(username='TestUser',
+                             email='',
+                             password='',
                              )
     client.login(username='TestUser', email='', password='')
 
@@ -88,20 +90,21 @@ def test_get_search_product_view():
 
     new_product.save()
     new_category = new_product.category.create(name=new_category.name)
-  
+
     path = reverse('search-product')
     response = client.get(path, {'question': Product.objects.get(name='TestProduct')})
 
     assert response.status_code == 200
     assertTemplateUsed(response, "product/search_product.html")
 
+
 @pytest.mark.django_db
 def test_post_search_product_view():
     client = Client()
     '''login requirement'''
-    User.objects.create_user(username = 'TestUser',
-                             email = '',
-                             password = '',
+    User.objects.create_user(username='TestUser',
+                             email='',
+                             password='',
                              )
     client.login(username='TestUser', email='', password='')
 
@@ -126,15 +129,16 @@ def test_post_search_product_view():
         assert response.status_code == 302
         assert response.url == reverse('favorite-product')
 
-#--------------------------------------------------------------------------------------------#
+# -------------------------------------------------------------------------------------------- #
+
 
 @pytest.mark.django_db
 def test_get_favorite_product_view():
     client = Client()
     '''login requirement'''
-    User.objects.create_user(username = 'Test User',
-                             email = '',
-                             password = '',
+    User.objects.create_user(username='Test User',
+                             email='',
+                             password='',
                              )
     client.login(username='Test User', email='', password='')
     path = reverse('favorite-product')
@@ -143,42 +147,22 @@ def test_get_favorite_product_view():
     assert response.status_code == 200
     assertTemplateUsed(response, "product/favorite_product.html")
 
+
 @pytest.mark.django_db
 def test_favorite_route():
     client = Client()
     '''login requirement'''
-    User.objects.create_user(username = 'Test User',
-                             email = '',
-                             password = '',
+    User.objects.create_user(username='Test User',
+                             email='',
+                             password='',
                              )
     client.login(username='Test User', email='', password='')
 
-    """
-    Test approach starts with testing if the 'signup' route maps to 'SignUpView'. Then we test 
-    if the SignUpView renders the correct template ( registration/signup.html ) with correct Form ( SignUpForm ).
-    After that we create a temporary user, by using our 'signup' route and checking if redirects the user to 
-    the 'login' route, if everything went fine.
-    """
-
-    # Testing if the 'signup' route maps to 'SignUpView'
     url = reverse('favorite-product')
     assert resolve(url).func.view_class, Favorite_product
 
-    # Testing if the SignUpView renders the correct template ( registration/signup.html ) with correct Form ( SignupForm )
     response = client.get(reverse('favorite-product'))
     assert response.status_code == 200
     assertTemplateUsed(response, 'product/favorite_product.html')
 
-    credentials = {
-        'id': 1,
-        'name': 'testname',
-        'category': 'testcategory',
-        'url': '',
-        'img': '',
-        'nutriscore': 'a',
-    }
-    # creating a temporary user and testing if the user gets redirected to 'login' route if signup was successful
-    #response = client.post(reverse('favorite-product'), credentials)
-    #assert response.status_code == 200
-
-#--------------------------------------------------------------------------------------------#
+# -------------------------------------------------------------------------------------------- #

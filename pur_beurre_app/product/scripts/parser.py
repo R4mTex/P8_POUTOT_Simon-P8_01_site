@@ -1,6 +1,7 @@
 import string
 import unidecode
 
+
 class Parser:
 
     def remove_upper_case(text_to_parse):

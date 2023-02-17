@@ -1,6 +1,5 @@
 
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
 from selenium.webdriver.chrome.service import Service

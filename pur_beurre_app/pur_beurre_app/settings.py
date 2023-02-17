@@ -78,7 +78,7 @@ TEMPLATES = [
     },
 ]
 
-#WSGI_APPLICATION = "pur_beurre_app.wsgi.application"
+# WSGI_APPLICATION = "pur_beurre_app.wsgi.application"
 
 
 # Database
@@ -102,7 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
         'OPTIONS': {
            'min_length': 6,
-       }
+        }
     },
     {
         "NAME": "authentication.validators.ContainsLetterValidator",

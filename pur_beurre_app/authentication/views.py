@@ -12,6 +12,7 @@ from authentication.models import User
 def home(request):
     return render(request, 'authentication/home.html', )
 
+
 class Signup(View):
     template_name = 'authentication/signup.html'
     form_class = forms.SignupForm
@@ -29,14 +30,15 @@ class Signup(View):
             return redirect(settings.LOGIN_REDIRECT_URL)
         return render(request, self.template_name, context={'form': form})
 
+
 class Login(View):
     template_name = 'authentication/login.html'
     form_class = forms.LoginForm
-    
+
     def get(self, request):
         form = self.form_class()
         return render(request, self.template_name, context={'form': form})
-        
+
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
@@ -49,13 +51,15 @@ class Login(View):
                 return redirect(settings.LOGIN_REDIRECT_URL)
         return render(request, self.template_name, context={'form': form})
 
+
 class User_profile(LoginRequiredMixin, View):
     template_name = 'authentication/user_profile.html'
     login_url = settings.LOGIN_URL
-    
+
     def get(self, request, id):
         user = User.objects.get(id=id)
         return render(request, self.template_name, context={'user': user})
+
 
 def mentions_legals(request):
     return render(request, 'authentication/mentions_legals.html')

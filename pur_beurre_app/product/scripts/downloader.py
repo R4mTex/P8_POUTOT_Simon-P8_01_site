@@ -62,9 +62,7 @@ class Downloader:
                 "url": products_urls[x].lower(),
                 "img": products_imgs_urls[x].lower(),
                 "nutriscore": products_nutriscores[x].lower(),
-                "nutriments" : products_nutriments[x],
+                "nutriments": products_nutriments[x],
             }
             products.append(products_structure)
         return products
-
-Downloader.get_products(1, 1)

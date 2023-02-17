@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Category(models.Model):
     name = models.fields.CharField(max_length=100,)
@@ -9,6 +10,7 @@ class Category(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
 
 class Product(models.Model):
     name = models.fields.CharField(max_length=100, unique=True,)
@@ -26,6 +28,7 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.name}'
 
+
 class Favorite(models.Model):
     product = models.ForeignKey('Product', related_name='favorites', on_delete=models.CASCADE)
 
@@ -33,4 +36,4 @@ class Favorite(models.Model):
         ordering = ['product']
 
     def __str__(self):
-        return f'{self.product}'       
+        return f'{self.product}'

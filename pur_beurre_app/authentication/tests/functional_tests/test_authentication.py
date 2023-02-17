@@ -5,12 +5,14 @@ from django.urls import reverse
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-driver.get("https://www.google.com")
+
+# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+# driver.get("https://www.google.com")
+
 
 class TestAuthentification(StaticLiveServerTestCase):
     def setUp(self):
-        #Ouvrir le navigateur avec le webdriver
+        # Ouvrir le navigateur avec le webdriver
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("signup"))
 
@@ -24,7 +26,7 @@ class TestAuthentification(StaticLiveServerTestCase):
         password2.send_keys("Qwertyuiop1")
         signup = self.browser.find_element("id", "send_button")
         signup.click()
- 
+
     def tearDown(self):
         self.browser.close()
 
@@ -33,7 +35,7 @@ class TestAuthentification(StaticLiveServerTestCase):
         self.assertEqual(self.browser.current_url, self.live_server_url + reverse("home"))
 
     def test_login(self):
-        #Ouvrir le navigateur avec le webdriver
+        # Ouvrir le navigateur avec le webdriver
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("login"))
 
@@ -46,9 +48,9 @@ class TestAuthentification(StaticLiveServerTestCase):
 
         self.assertEqual(self.browser.find_element("id", "title").text, "Du gras, oui, mais de qualité !")
         self.assertEqual(self.browser.current_url, self.live_server_url + reverse("home"))
-    
+
     def test_logout(self):
-        #Ouvrir le navigateur avec le webdriver
+        # Ouvrir le navigateur avec le webdriver
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("login"))
 
@@ -61,8 +63,8 @@ class TestAuthentification(StaticLiveServerTestCase):
 
         logout = self.browser.find_element("xpath", "//a[contains(@href, '/logout/')]")
         logout.click()
-        
-        #self.assertNotEqual(self.browser.page_source.find("LOGIN"), -1)
+
+        # self.assertNotEqual(self.browser.page_source.find("LOGIN"), -1)
         self.assertEqual(
             self.browser.current_url, self.live_server_url + reverse("login")
         )
@@ -134,8 +136,8 @@ class TestAuthentificationFailed(StaticLiveServerTestCase):
 
         self.assertNotEqual(
             self.browser.page_source.find("A user with that username already exists."),
-            1, 
-        ) #-1
+            1,
+        )  # -1
         self.assertEqual(
             self.browser.current_url, self.live_server_url + reverse("signup")
         )
