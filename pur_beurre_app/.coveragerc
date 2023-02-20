@@ -1,2 +1,0 @@
-[run]
-omit = authentication/tests/*, product/tests/*, manage.py, pur_beurre_app/asgi.py,
