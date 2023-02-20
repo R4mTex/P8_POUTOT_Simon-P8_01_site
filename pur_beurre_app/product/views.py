@@ -59,7 +59,7 @@ class Search_product(LoginRequiredMixin, View):
             return render(request, self.template_name, context={'product': product_values,
                                                                 'substitutes': substitutes, })
         else:
-            return redirect('search-product')
+            return redirect('home')
 
     def post(self, request):
         substitute_id = request.POST.get("submit")
