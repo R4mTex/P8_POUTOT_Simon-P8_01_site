@@ -1,7 +1,0 @@
-{
-    "python.testing.pytestArgs": [
-        "pur_beurre_app"
-    ],
-    "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
-}
