@@ -15,10 +15,10 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.fields.CharField(max_length=100, unique=True,)
     category = models.ManyToManyField(Category)
-    description = models.fields.TextField(max_length=100, null=True,)
+    description = models.fields.TextField(max_length=3000, null=True,)
     store = models.fields.CharField(max_length=100, null=True)
-    url = models.URLField()
-    img = models.ImageField()
+    url = models.URLField(max_length=200,)
+    img = models.ImageField(max_length=100,)
     nutriscore = models.fields.CharField(max_length=100,)
     nutriments = models.JSONField()
 
