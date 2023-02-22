@@ -78,7 +78,7 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = "pur_beurre_app.wsgi.application"
+WSGI_APPLICATION = "pur_beurre_app.wsgi.application"
 
 
 # Database
@@ -90,6 +90,19 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '<base de données>',
+        'USER': '<utilisateur>',
+        'PASSWORD': '<password>',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+"""
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 
