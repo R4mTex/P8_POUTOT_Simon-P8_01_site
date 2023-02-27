@@ -92,21 +92,20 @@ WSGI_APPLICATION = "pur_beurre_app.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {}
-DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+#DATABASES = {}
+#DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
-"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '<base de données>',
-        'USER': '<utilisateur>',
-        'PASSWORD': '<password>',
+        'NAME': 'postgres',
+        'USER': 'admin',
+        'PASSWORD': 'Kundera1',
         'HOST': 'localhost',
         'PORT': '',
     }
 }
-"""
+
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 
@@ -149,10 +148,10 @@ USE_TZ = True
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_URL = "/static/"
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
