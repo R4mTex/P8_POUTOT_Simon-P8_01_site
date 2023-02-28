@@ -18,7 +18,7 @@ class Product(models.Model):
     description = models.fields.TextField(max_length=2048, null=True,)
     store = models.fields.CharField(max_length=256, null=True)
     url = models.URLField(max_length=200,)
-    img = models.ImageField(max_length=100,)
+    img = models.CharField(max_length=256,)
     nutriscore = models.fields.CharField(max_length=256,)
     nutriments = models.JSONField()
 

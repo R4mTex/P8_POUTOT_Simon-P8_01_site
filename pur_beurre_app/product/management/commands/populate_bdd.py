@@ -32,7 +32,7 @@ Download Products And Categories From OpenFoodFacts In Progress.\n""")
 
         for product in tqdm(range(len(products_downloaded))):
             new_category = Category()
-            new_category.name = products_downloaded[product]['category']
+            new_category.name = products_downloaded[product]['category']  
             new_product = Product()
             new_product.name = str(products_downloaded[product]['name'])
             new_product.description = str(products_downloaded[product]['description'])
@@ -42,8 +42,11 @@ Download Products And Categories From OpenFoodFacts In Progress.\n""")
             new_product.nutriscore = str(products_downloaded[product]['nutriscore'])
             new_product.nutriments = products_downloaded[product]['nutriments']
             try:
+                print(new_product.name)
+                print(new_category.name, len(new_category.name))
                 new_product.save()
                 new_category = new_product.category.create(name=new_category.name)
+                print("-----------------end-------------------")
             except IntegrityError:
                 continue
         return """\nProducts Added.
