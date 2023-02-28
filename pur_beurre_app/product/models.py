@@ -16,9 +16,9 @@ class Product(models.Model):
     name = models.fields.CharField(max_length=256, unique=True,)
     category = models.ManyToManyField(Category)
     description = models.fields.TextField(max_length=2048, null=True,)
-    store = models.fields.CharField(max_length=256, null=True)
+    store = models.fields.TextField(max_length=512, null=True)
     url = models.URLField(max_length=200,)
-    img = models.CharField(max_length=256,)
+    img = models.fields.CharField(max_length=256,)
     nutriscore = models.fields.CharField(max_length=256,)
     nutriments = models.JSONField()
 
