@@ -43,8 +43,7 @@ Download Products And Categories From OpenFoodFacts In Progress.\n""")
             new_product.nutriments = products_downloaded[product]['nutriments']
             try:
                 new_product.save()
-                for category in new_category.name:
-                    new_category = new_product.category.create(name=category)
+                new_category = new_product.category.create(name=new_category.name)
             except IntegrityError:
                 continue
         return """\nProducts Added.

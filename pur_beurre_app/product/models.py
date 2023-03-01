@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 class Category(models.Model):
-    name = models.fields.CharField(max_length=512,)
+    name = models.fields.TextField(max_length=1024,)
 
     class Meta:
         ordering = ['name']
@@ -16,7 +16,7 @@ class Product(models.Model):
     name = models.fields.CharField(max_length=256, unique=True,)
     category = models.ManyToManyField(Category)
     description = models.fields.TextField(max_length=2048, null=True,)
-    store = models.fields.TextField(max_length=512, null=True)
+    store = models.fields.TextField(max_length=1024, null=True)
     url = models.URLField(max_length=200,)
     img = models.fields.CharField(max_length=256,)
     nutriscore = models.fields.CharField(max_length=256,)
