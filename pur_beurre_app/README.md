@@ -18,7 +18,7 @@ Tout d'abord, recupérez mon projet avec cette commande :
 
 puis placez-vous dans ce dossier : 
 
-```cd P8_POUTOT_Simon-P8_01_site```
+```cd P8_POUTOT_Simon-P8_01_site/pur_beurre_app```
 
 Pour ne pas interférer avec d'autres projets, il est conseillé d'exécuter celui-ci dans un environnement virtuel. 
 Voici les principales commandes pour :
@@ -50,11 +50,7 @@ Une fois la console placée dans le dossier racine du programme, leurs installat
 
 ### Initialisation
 
-Accédez au dossier "pur_beurre_app" en utilisant la commande : 
-
-```cd pur_beurre_app```
-
-Puis exécutez ces commandes à la suite dans cet ordre :
+Exécutez ces commandes à la suite dans cet ordre :
 
 1. ```python manage.py migrate```
 2. ```python manage.py createsuperuser``` (suivre les intructions affichées dans la console de commande)
