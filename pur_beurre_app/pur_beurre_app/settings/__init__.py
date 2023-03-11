@@ -1,3 +1,4 @@
+
 """
 Django settings for pur_beurre_app project.
 
@@ -34,8 +35,7 @@ SECRET_KEY = "django-insecure-oojxtu-96yb)8^(=y%g(jt)fi5-%q0il0=)eq2nvn)u40ptnbr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['46.101.32.241']
-
+ALLOWED_HOSTS = ['46.101.32.241', '127.0.0.1']
 
 # Application definition
 
@@ -47,14 +47,14 @@ LOGOUT_REDIRECT_URL = LOGIN_URL
 
 
 INSTALLED_APPS = [
+    'authentication',
+    'product',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
-    'authentication',
-    'product',
+    "django.contrib.staticfiles",   
 ]
 
 MIDDLEWARE = [
@@ -94,15 +94,15 @@ WSGI_APPLICATION = "pur_beurre_app.wsgi.application"
 # DATABASES = {}
 # DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
-"""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'db.sqlite3',
     }
 }
-"""
 
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -113,7 +113,7 @@ DATABASES = {
         'PORT': '',
     }
 }
-
+"""
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 
@@ -155,3 +155,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "/static/"
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+django_heroku.settings(locals())
+
+# This is new
+options = DATABASES['default'].get('OPTIONS', {})
+options.pop('sslmode', None)
