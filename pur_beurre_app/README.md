@@ -48,7 +48,7 @@ Une fois la console placée dans le dossier racine du programme, leurs installat
 
 ```pip install -r requirements.txt --use-pep517```
 
-### Initialisation
+### Initialisatio
 
 Exécutez ces commandes à la suite dans cet ordre :
 
