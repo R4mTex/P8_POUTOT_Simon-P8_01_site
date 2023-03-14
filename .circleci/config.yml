@@ -25,4 +25,4 @@ jobs:
       - image: cimg/base:2022.09
     steps:
     - checkout
-    - run: ./pur_beurre_app/manage.py test
+    - run: pytest
