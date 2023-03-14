@@ -22,7 +22,7 @@ version: 3.4.5
 jobs:
   build:
     docker:
-      - image: 
+      - image: cimg/base:2022.09
     steps:
     - checkout
     - run: echo "A first hello" 
