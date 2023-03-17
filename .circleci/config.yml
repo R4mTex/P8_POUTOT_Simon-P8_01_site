@@ -26,8 +26,7 @@ jobs:
         steps:
             - checkout
             - run:
-                name: "Going at pur_beurre_app folder"
-                command: cd pur_beurre_app
-            - run:
-                name: "Running Tests"
-                command: pytest
+                name: "Going at pur_beurre_app folder and running tests"
+                command: | 
+                    cd pur_beurre_app
+                    pytest
