@@ -30,7 +30,7 @@ jobs:
                 command: cd pur_beurre_app
             - run:
                 name: "Activate env virtual"
-                command: env\Scripts\Activate.ps1
+                command: env\Scripts\activate.bat
             - run:
                 name: "Running Tests"
                 command: pytest
