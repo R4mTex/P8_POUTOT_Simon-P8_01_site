@@ -1,28 +1,30 @@
-language: python
-python:
-    - '3.11.2'
+# language: python
+# python:
+#     - '3.11.2'
 
-before_script:
-    - pip install -r requirements.txt
+# before_script:
+#     - pip install -r requirements.txt
 
-branches:
-  only:
-    - main
+# branches:
+#   only:
+#     - main
 
-env: DJANGO_SETTINGS_MODULE="pur_beurre_app.settings.circle"
+# env: DJANGO_SETTINGS_MODULE="pur_beurre_app.settings.circle"
 
-services:
-    - postgresql
+# services:
+#     - postgresql
 
-script:
-    - ./manage.py test
+# script:
+#     - ./manage.py test
 
 version: 3.4.5
 
 jobs:
-  build:
-    docker:
-      - image: cimg/base:2022.09
-    steps:
-    - checkout
-    - run: pytest
+    build:
+        docker:
+            - image: cimg/python:3.11.2
+        steps:
+            - checkout
+            - run:
+                name: "Running Tests"
+                command: pytest
