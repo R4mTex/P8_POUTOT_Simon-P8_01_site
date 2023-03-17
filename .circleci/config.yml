@@ -29,8 +29,5 @@ jobs:
                 name: "Going at pur_beurre_app folder"
                 command: cd pur_beurre_app
             - run:
-                name: "Install librairies"
-                command: pip install -r requirements.txt --use-pep517
-            - run:
                 name: "Running Tests"
                 command: pytest
