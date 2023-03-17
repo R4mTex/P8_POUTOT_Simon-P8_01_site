@@ -29,11 +29,8 @@ jobs:
                 name: "Going at pur_beurre_app folder"
                 command: cd pur_beurre_app
             - run:
-                name: "Activate env virtual"
-                command: |
-                    python -m venv env
-                    env\Scripts\Activate.ps1
-                    pip install -r requirements.txt --use-pep517
+                name: "Install librairies"
+                command: pip install -r requirements.txt --use-pep517
             - run:
                 name: "Running Tests"
                 command: pytest
