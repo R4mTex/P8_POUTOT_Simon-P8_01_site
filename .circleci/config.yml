@@ -29,9 +29,26 @@ jobs:
             - checkout
 
             - run:
-                name: "Going at pur_beurre_app folder and running tests"
+                name: "Going at pur_beurre_app folder and install librairies"
                 command: |
                     cd pur_beurre_app
                     pip install --upgrade pip
                     pip install -r requirements.txt --use-pep517
                     pytest
+
+    test:
+
+        docker:
+            - image: cimg/python:3.11.2
+
+        steps:
+            - checkout
+            - run: 
+                name: "Going at pur_beurre_app folder and running tests"
+                command: pytest
+
+workflows:
+    build_and_test:
+      jobs:
+        - build
+        - test
