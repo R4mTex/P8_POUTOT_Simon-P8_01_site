@@ -32,5 +32,6 @@ jobs:
                 name: "Going at pur_beurre_app folder and running tests"
                 command: |
                     cd pur_beurre_app
+                    pip install --upgrade pip
                     pip install -r requirements.txt --use-pep517
                     pytest
