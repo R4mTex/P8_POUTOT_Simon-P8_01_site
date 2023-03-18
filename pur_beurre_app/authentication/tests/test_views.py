@@ -22,7 +22,7 @@ def test_home_view():
                              )
     client.login(username='TestUser', email='', password='')
     path = reverse('home')
-    response = super().get(path)
+    response = client.get(path)
 
     expected_value = 200
     assert response.status_code == expected_value
