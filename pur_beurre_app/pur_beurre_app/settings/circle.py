@@ -4,7 +4,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'circle',
-        'USER': 'exemple',
+        'USER': 'example',
         'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '5432',
