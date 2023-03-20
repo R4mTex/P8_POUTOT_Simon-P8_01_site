@@ -43,6 +43,9 @@ jobs:
   build:
     docker:
       - image: cimg/python:3.11.2
+      - image: cimg/postgres:14.1
+        environment:
+          POSTGRES_USER: example
     steps:
       - checkout
       - run:
