@@ -61,6 +61,7 @@ jobs:
           command: |
             cd pur_beurre_app
             . venv/bin/activate
+            python manage.py collectstatic
             pytest
       - store_artifacts:
           path: test-reports/
