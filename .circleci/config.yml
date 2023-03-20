@@ -45,10 +45,9 @@ jobs:
       - image: circleci/python:3.6
     steps:
       - checkout
-      - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
           command: |
+            cd pur_beurre_app
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
