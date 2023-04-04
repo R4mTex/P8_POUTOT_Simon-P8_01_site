@@ -13,7 +13,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 class TestAuthentification(StaticLiveServerTestCase):
     def setUp(self):
         #self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-        self.browser = webdriver.Chrome("tests/functional_tests/chromedriver")
+        self.service = Service("tests/functional_tests/chromedriver.exe")
+        self.options = webdriver.ChromeOptions()
+        self.browser = webdriver.Chrome(service=self.service, options=self.options)
         self.browser.get(self.live_server_url + reverse("signup"))
 
         username = self.browser.find_element("id", "id_username")

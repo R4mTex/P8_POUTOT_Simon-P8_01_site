@@ -1,7 +1,7 @@
 
-from selenium import webdriver
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
+from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -9,7 +9,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 class TestHome(StaticLiveServerTestCase):
     def setUp(self):
         #self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-        self.browser = webdriver.Chrome("tests/functional_tests/chromedriver")
+        self.service = Service("tests/functional_tests/chromedriver.exe")
+        self.options = webdriver.ChromeOptions()
+        self.browser = webdriver.Chrome(service=self.service, options=self.options)
         self.browser.get(self.live_server_url + reverse("signup"))
 
     def tearDown(self):
