@@ -11,6 +11,8 @@ class TestHome(StaticLiveServerTestCase):
         #self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.service = Service("tests/functional_tests/chromedriver.exe")
         self.options = webdriver.ChromeOptions()
+        self.options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        #self.chrome_driver_binary = r"C:\Users\spout\Downloads\chromedriver_win32\chromedriver.exe"
         self.browser = webdriver.Chrome(service=self.service, options=self.options)
         self.browser.get(self.live_server_url + reverse("signup"))
 
@@ -42,7 +44,7 @@ class TestHome(StaticLiveServerTestCase):
         login.click()
 
     def test_home_with_logged_user(self):
-        self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        #self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("signup"))
 
         username = self.browser.find_element("id", "id_username")
@@ -63,7 +65,7 @@ class TestHome(StaticLiveServerTestCase):
         )
 
     def test_home_with_not_logged_user(self):
-        self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        #self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("favorite-product"))
         self.assertEqual(
             self.browser.current_url,
