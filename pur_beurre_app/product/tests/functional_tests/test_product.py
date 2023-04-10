@@ -8,16 +8,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 class TestHome(StaticLiveServerTestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome()
-        self.browser = webdriver.Chrome(self.driver.get("http://selenium.dev"))
-        self.browser.get(self.live_server_url + reverse("signup"))
         #self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-        #self.service = Service("tests/functional_tests/chromedriver.exe")
-        #self.options = webdriver.ChromeOptions()
-        #self.options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        self.service = Service("tests/functional_tests/chromedriver.exe")
+        self.options = webdriver.ChromeOptions()
+        self.options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
         #self.chrome_driver_binary = r"C:\Users\spout\Downloads\chromedriver_win32\chromedriver.exe"
-        #self.browser = webdriver.Chrome(service=self.service, options=self.options)
-        #self.browser.get(self.live_server_url + reverse("signup"))
+        self.browser = webdriver.Chrome(service=self.service, options=self.options)
+        self.browser.get(self.live_server_url + reverse("signup"))
 
     def tearDown(self):
         self.browser.close()
