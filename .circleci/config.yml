@@ -38,24 +38,21 @@
 #                    python manage.py populate_bdd 10 100
 #                    pytest
 
-version: 2
+version: 2.1
+
+
+orbs:
+  lambda-tunnel: lambdatest/lambda-tunnel@0.0.1
+
 jobs:
   build:
     docker:
       - image: cimg/python:3.11.2
       - image: cimg/postgres:14.1
-#        environment:
-#          POSTGRES_USER: example
+  lambdatest/with_tunnel:
+    tunnel_name: TEST_LAMBDA_TUNNEL
     steps:
       - checkout
-      - run: mkdir test-reports
-      - run:
-          name: Download Selenium
-          command: curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
-      - run:
-          name: Start Selenium
-          command: pip install -jar selenium-server-standalone-3.5.3.jar -log test-reports/selenium.log
-          background: true
       - run:
           name: Set up
           command: |
