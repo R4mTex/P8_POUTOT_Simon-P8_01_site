@@ -46,8 +46,10 @@ orbs:
 jobs:
   lambdatest/with_tunnel:
     tunnel_name: TEST_LAMBDA_TUNNEL
+
     steps:
       - checkout
+
       - run:
           name: Set up
           command: |
@@ -56,6 +58,7 @@ jobs:
             . venv/bin/activate
             pip install --upgrade pip
             pip install -r requirements.txt --use-pep517
+
       - run:
           name: Running tests
           command: |
@@ -63,16 +66,14 @@ jobs:
             . venv/bin/activate
             python manage.py collectstatic
             pytest
+            
       - store_artifacts:
           path: test-reports/
           destination: python_app
-
-"""
-jobs:
-  build:
-    docker:
-      - image: cimg/python:3.11.2
-      - image: cimg/postgres:14.1
+#jobs:
+#  build:
+#    docker:
+#      - image: cimg/python:3.11.2
+#      - image: cimg/postgres:14.1
 #        environment:
 #          POSTGRES_USER: example
-""" 
