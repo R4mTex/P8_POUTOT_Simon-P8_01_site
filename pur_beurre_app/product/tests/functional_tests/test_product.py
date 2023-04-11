@@ -11,7 +11,7 @@ class TestHome(StaticLiveServerTestCase):
         options = webdriver.ChromeOptions()
         options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
         chrome_driver_binary = r"C:\Users\spout\.wdm\drivers\chromedriver\win32\112.0.5615\chromedriver.exe"
-        self.browser = webdriver.Chrome(service=chrome_driver_binary, chrome_options=options)
+        self.browser = webdriver.Chrome(service=chrome_driver_binary, options=options)
         #self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("signup"))
 
