@@ -14,8 +14,9 @@ class TestAuthentification(StaticLiveServerTestCase):
     def setUp(self):
         options = webdriver.ChromeOptions()
         options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-        chrome_driver_binary = r"C:\Users\spout\.wdm\drivers\chromedriver\win32\112.0.5615\chromedriver.exe"
-        self.browser = webdriver.Chrome(service=chrome_driver_binary, options=options)
+        #chrome_driver_binary = r"C:\Users\spout\.wdm\drivers\chromedriver\win32\112.0.5615\chromedriver.exe"
+        service = Service(r"C:\Users\spout\.wdm\drivers\chromedriver\win32\112.0.5615\chromedriver.exe")
+        self.browser = webdriver.Chrome(service=service, options=options)
         #self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("signup"))
 
@@ -38,8 +39,12 @@ class TestAuthentification(StaticLiveServerTestCase):
         self.assertEqual(self.browser.current_url, self.live_server_url + reverse("home"))
 
     def test_login(self):
-        # Ouvrir le navigateur avec le webdriver
-        self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        options = webdriver.ChromeOptions()
+        options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        #chrome_driver_binary = r"C:\Users\spout\.wdm\drivers\chromedriver\win32\112.0.5615\chromedriver.exe"
+        service = Service(r"C:\Users\spout\.wdm\drivers\chromedriver\win32\112.0.5615\chromedriver.exe")
+        self.browser = webdriver.Chrome(service=service, options=options)
+        #self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("login"))
 
         username = self.browser.find_element("id", "id_username")
@@ -53,8 +58,12 @@ class TestAuthentification(StaticLiveServerTestCase):
         self.assertEqual(self.browser.current_url, self.live_server_url + reverse("home"))
 
     def test_logout(self):
-        # Ouvrir le navigateur avec le webdriver
-        self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        options = webdriver.ChromeOptions()
+        options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        #chrome_driver_binary = r"C:\Users\spout\.wdm\drivers\chromedriver\win32\112.0.5615\chromedriver.exe"
+        service = Service(r"C:\Users\spout\.wdm\drivers\chromedriver\win32\112.0.5615\chromedriver.exe")
+        self.browser = webdriver.Chrome(service=service, options=options)
+        #self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("login"))
 
         username = self.browser.find_element("id", "id_username")
@@ -75,7 +84,13 @@ class TestAuthentification(StaticLiveServerTestCase):
 
 class TestAuthentificationFailed(StaticLiveServerTestCase):
     def setUp(self):
-        self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        options = webdriver.ChromeOptions()
+        options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        #chrome_driver_binary = r"C:\Users\spout\.wdm\drivers\chromedriver\win32\112.0.5615\chromedriver.exe"
+        service = Service(r"C:\Users\spout\.wdm\drivers\chromedriver\win32\112.0.5615\chromedriver.exe")
+        self.browser = webdriver.Chrome(service=service, options=options)
+        #self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        self.browser.get(self.live_server_url + reverse("signup"))
 
     def tearDown(self):
         self.browser.close()
