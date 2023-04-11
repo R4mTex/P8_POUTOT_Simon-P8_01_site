@@ -5,6 +5,9 @@ python:
   - '3.11.2'
 
 before_script:
+  - cd pur_beurre_app
+  - python -m venv env
+  - env\Scripts\activate.bat
   - pip install -r requirements.txt
 
 branches:
