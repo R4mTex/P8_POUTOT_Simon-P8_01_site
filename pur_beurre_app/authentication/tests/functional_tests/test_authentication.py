@@ -6,16 +6,9 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-# driver.get("https://www.google.com")
-
-
 class TestAuthentification(StaticLiveServerTestCase):
     def setUp(self):
-        #self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-        self.service = Service("tests/functional_tests/chromedriver.exe")
-        self.options = webdriver.ChromeOptions()
-        self.browser = webdriver.Chrome(service=self.service, options=self.options)
+        self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("signup"))
 
         username = self.browser.find_element("id", "id_username")
@@ -37,7 +30,6 @@ class TestAuthentification(StaticLiveServerTestCase):
         self.assertEqual(self.browser.current_url, self.live_server_url + reverse("home"))
 
     def test_login(self):
-        # Ouvrir le navigateur avec le webdriver
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("login"))
 
@@ -52,7 +44,6 @@ class TestAuthentification(StaticLiveServerTestCase):
         self.assertEqual(self.browser.current_url, self.live_server_url + reverse("home"))
 
     def test_logout(self):
-        # Ouvrir le navigateur avec le webdriver
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("login"))
 
@@ -75,11 +66,13 @@ class TestAuthentification(StaticLiveServerTestCase):
 class TestAuthentificationFailed(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        self.browser.get(self.live_server_url + reverse("signup"))
 
     def tearDown(self):
         self.browser.close()
 
     def test_signup_with_wrong_email(self):
+        self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("signup"))
 
         username = self.browser.find_element("id", "id_username")
@@ -101,6 +94,7 @@ class TestAuthentificationFailed(StaticLiveServerTestCase):
         )
 
     def test_signup_with_two_different_password(self):
+        self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("signup"))
 
         username = self.browser.find_element("id", "id_username")
@@ -122,6 +116,7 @@ class TestAuthentificationFailed(StaticLiveServerTestCase):
         )
 
     def test_signup_with_same_username(self):
+        self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         for i in range(2):
             self.browser.get(self.live_server_url + reverse("signup"))
 

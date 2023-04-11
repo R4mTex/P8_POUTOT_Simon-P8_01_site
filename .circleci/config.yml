@@ -38,38 +38,38 @@
 #                    python manage.py populate_bdd 10 100
 #                    pytest
 
-version: 2.1
+#version: 2.1
 
-orbs:
-  lambda-tunnel: lambdatest/lambda-tunnel@0.0.1
+#orbs:
+#  lambda-tunnel: lambdatest/lambda-tunnel@0.0.1
 
-jobs:
-  lambdatest/with_tunnel:
-    tunnel_name: TEST_LAMBDA_TUNNEL
+#jobs:
+#  lambdatest/with_tunnel:
+#    tunnel_name: TEST_LAMBDA_TUNNEL
 
-    steps:
-      - checkout
+#    steps:
+#      - checkout
 
-      - run:
-          name: Set up
-          command: |
-            cd pur_beurre_app
-            python -m venv venv
-            . venv/bin/activate
-            pip install --upgrade pip
-            pip install -r requirements.txt --use-pep517
+#      - run:
+#          name: Set up
+#          command: |
+#            cd pur_beurre_app
+#            python -m venv venv
+#            . venv/bin/activate
+#            pip install --upgrade pip
+#            pip install -r requirements.txt --use-pep517
 
-      - run:
-          name: Running tests
-          command: |
-            cd pur_beurre_app
-            . venv/bin/activate
-            python manage.py collectstatic
-            pytest
+#      - run:
+#          name: Running tests
+#          command: |
+#            cd pur_beurre_app
+#            . venv/bin/activate
+#            python manage.py collectstatic
+#            pytest
             
-      - store_artifacts:
-          path: test-reports/
-          destination: python_app
+#      - store_artifacts:
+#          path: test-reports/
+#          destination: python_app
 #jobs:
 #  build:
 #    docker:
@@ -77,3 +77,20 @@ jobs:
 #      - image: cimg/postgres:14.1
 #        environment:
 #          POSTGRES_USER: example
+
+## Set the artifacts
+general:
+  artifacts:
+    - "./tests/screenshots" #Save the screenshots for the tests
+ 
+## Customize dependencies
+dependencies:
+  pre:
+    - sudo pip install -U selenium
+    - sudo pip install -U webdriver-manager
+    - sudo pip install -U pytest
+ 
+## Running Tests
+test:
+   override:
+    - pytest
