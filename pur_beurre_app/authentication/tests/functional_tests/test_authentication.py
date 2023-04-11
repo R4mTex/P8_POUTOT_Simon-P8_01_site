@@ -13,7 +13,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 class TestAuthentification(StaticLiveServerTestCase):
     def setUp(self):
         options = webdriver.ChromeOptions()
-        options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome"
+        options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
         #chrome_driver_binary = r"C:\Users\spout\.wdm\drivers\chromedriver\win32\112.0.5615\chromedriver.exe"
         service = Service(r"C:\Users\spout\.wdm\drivers\chromedriver\win32\112.0.5615\chromedriver.exe")
         self.browser = webdriver.Chrome(service=service, options=options)
