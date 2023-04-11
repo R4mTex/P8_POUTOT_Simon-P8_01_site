@@ -32,6 +32,9 @@
                 name: "Going at pur_beurre_app folder, install librairies and run tests"
                 command: |
                     cd pur_beurre_app
+                    python -m venv venv
+                    . venv/bin/activate
+                    python manage.py collectstatic
                     pip install --upgrade pip
                     pip install -U selenium
                     pip install -U webdriver-manager
