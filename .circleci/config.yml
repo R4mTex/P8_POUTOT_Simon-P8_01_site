@@ -33,12 +33,13 @@
                 command: |
                     cd pur_beurre_app
                     pip install --upgrade pip
-                     pip install -U selenium
-                     pip install -U webdriver-manager
-                     pip install -U pytest
+                    pip install -U selenium
+                    pip install -U webdriver-manager
+                    pip install -U pytest
                     pip install -r requirements.txt --use-pep517
+                    python manage.py makemigrations
                     python manage.py migrate
-                    python manage.py populate_bdd 10 100
+                    python manage.py populate_bdd 10 10
                     pytest
 
 
