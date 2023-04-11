@@ -2,7 +2,7 @@
 language: python
 
 python:
-  - '3.11.2'
+  - '3.9'
 
 before_script:
   - cd pur_beurre_app
