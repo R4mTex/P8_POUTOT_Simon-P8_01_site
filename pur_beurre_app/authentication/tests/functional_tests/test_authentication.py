@@ -45,7 +45,7 @@ class TestAuthentification(StaticLiveServerTestCase):
         display = Display(visible=0, size=(800, 800))  
         display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-        self.browser.get(self.live_server_url + reverse("signup"))
+        self.browser.get(self.live_server_url + reverse("login"))
         try:
             element = WebDriverWait(self.browser, 10).until(
                 EC.presence_of_element_located((By.ID, "id_password"))
@@ -68,7 +68,7 @@ class TestAuthentification(StaticLiveServerTestCase):
         display = Display(visible=0, size=(800, 800))  
         display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-        self.browser.get(self.live_server_url + reverse("signup"))
+        self.browser.get(self.live_server_url + reverse("login"))
         try:
             element = WebDriverWait(self.browser, 10).until(
                 EC.presence_of_element_located((By.ID, "id_password"))
