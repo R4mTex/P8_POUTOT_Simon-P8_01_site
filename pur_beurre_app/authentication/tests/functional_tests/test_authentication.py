@@ -9,9 +9,6 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from pyvirtualdisplay import Display
 
-# 
-# driver.get("https://www.google.com")
-
 
 class TestAuthentification(StaticLiveServerTestCase):
     def setUp(self):
@@ -71,23 +68,20 @@ class TestAuthentification(StaticLiveServerTestCase):
                 EC.presence_of_element_located((By.ID, "id_password"))
             )
         finally:
-            self.browser.quit()
+            username = self.browser.find_element("id", "id_username")
+            username.send_keys("R4mTex")
+            password = self.browser.find_element("id", "id_password")
+            password.send_keys("Qwertyuiop1")
+            login = self.browser.find_element("id", "send_button")
+            login.click()
 
+            logout = self.browser.find_element("xpath", "//a[contains(@href, '/logout/')]")
+            logout.click()
 
-        username = self.browser.find_element("id", "id_username")
-        username.send_keys("R4mTex")
-        password = self.browser.find_element("id", "id_password")
-        password.send_keys("Qwertyuiop1")
-        login = self.browser.find_element("id", "send_button")
-        login.click()
-
-        logout = self.browser.find_element("xpath", "//a[contains(@href, '/logout/')]")
-        logout.click()
-
-        # self.assertNotEqual(self.browser.page_source.find("LOGIN"), -1)
-        self.assertEqual(
-            self.browser.current_url, self.live_server_url + reverse("login")
-        )
+            # self.assertNotEqual(self.browser.page_source.find("LOGIN"), -1)
+            self.assertEqual(
+                self.browser.current_url, self.live_server_url + reverse("login")
+            )
 
 
 class TestAuthentificationFailed(StaticLiveServerTestCase):
