@@ -6,13 +6,14 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+# 
 # driver.get("https://www.google.com")
 
 
 class TestAuthentification(StaticLiveServerTestCase):
     def setUp(self):
-        self.browser = webdriver.Chrome("tests/functional_tests/chromedriver")
+        #self.browser = webdriver.Chrome("tests/functional_tests/chromedriver")
+        self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("signup"))
 
         username = self.browser.find_element("id", "id_username")
