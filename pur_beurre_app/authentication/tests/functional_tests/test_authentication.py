@@ -42,6 +42,8 @@ class TestAuthentification(StaticLiveServerTestCase):
         display = Display(visible=0, size=(800, 800))  
         display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        self.browser.maximize_window() # For maximizing window
+        self.browser.implicitly_wait(20) # gives an implicit wait for 20 seconds
         self.browser.get(self.live_server_url + reverse("signup"))
 
         username = self.browser.find_element("id", "id_username")
@@ -58,6 +60,8 @@ class TestAuthentification(StaticLiveServerTestCase):
         display = Display(visible=0, size=(800, 800))  
         display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        self.browser.maximize_window() # For maximizing window
+        self.browser.implicitly_wait(20) # gives an implicit wait for 20 seconds
         self.browser.get(self.live_server_url + reverse("signup"))
 
         username = self.browser.find_element("id", "id_username")
