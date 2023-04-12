@@ -51,18 +51,15 @@ class TestAuthentification(StaticLiveServerTestCase):
                 EC.presence_of_element_located((By.ID, "id_password"))
             )
         finally:
-            self.browser.quit()
+            username = self.browser.find_element("id", "id_username")
+            username.send_keys("R4mTex")
+            password = self.browser.find_element("id", "id_password")
+            password.send_keys("Qwertyuiop1")
+            login = self.browser.find_element("id", "send_button")
+            login.click()
 
-
-        username = self.browser.find_element("id", "id_username")
-        username.send_keys("R4mTex")
-        password = self.browser.find_element("id", "id_password")
-        password.send_keys("Qwertyuiop1")
-        login = self.browser.find_element("id", "send_button")
-        login.click()
-
-        self.assertEqual(self.browser.find_element("id", "title").text, "Du gras, oui, mais de qualité !")
-        self.assertEqual(self.browser.current_url, self.live_server_url + reverse("home"))
+            self.assertEqual(self.browser.find_element("id", "title").text, "Du gras, oui, mais de qualité !")
+            self.assertEqual(self.browser.current_url, self.live_server_url + reverse("home"))
 
     def test_logout(self):
         display = Display(visible=0, size=(800, 800))  
