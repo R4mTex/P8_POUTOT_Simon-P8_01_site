@@ -1,7 +1,10 @@
 
-from selenium import webdriver
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from pyvirtualdisplay import Display
@@ -42,9 +45,14 @@ class TestAuthentification(StaticLiveServerTestCase):
         display = Display(visible=0, size=(800, 800))  
         display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-        self.browser.maximize_window() # For maximizing window
-        self.browser.implicitly_wait(20) # gives an implicit wait for 20 seconds
         self.browser.get(self.live_server_url + reverse("signup"))
+        try:
+            element = WebDriverWait(self.browser, 10).until(
+                EC.presence_of_element_located((By.ID, "id_password"))
+            )
+        finally:
+            self.browser.quit()
+
 
         username = self.browser.find_element("id", "id_username")
         username.send_keys("R4mTex")
@@ -60,9 +68,14 @@ class TestAuthentification(StaticLiveServerTestCase):
         display = Display(visible=0, size=(800, 800))  
         display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-        self.browser.maximize_window() # For maximizing window
-        self.browser.implicitly_wait(20) # gives an implicit wait for 20 seconds
         self.browser.get(self.live_server_url + reverse("signup"))
+        try:
+            element = WebDriverWait(self.browser, 10).until(
+                EC.presence_of_element_located((By.ID, "id_password"))
+            )
+        finally:
+            self.browser.quit()
+
 
         username = self.browser.find_element("id", "id_username")
         username.send_keys("R4mTex")
