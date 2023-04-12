@@ -4,7 +4,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-
+from pyvirtualdisplay import Display
 
 # 
 # driver.get("https://www.google.com")
@@ -13,6 +13,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 class TestAuthentification(StaticLiveServerTestCase):
     def setUp(self):
         #self.browser = webdriver.Chrome("tests/functional_tests/chromedriver")
+        display = Display(visible=0, size=(800, 800))  
+        display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("signup"))
 
