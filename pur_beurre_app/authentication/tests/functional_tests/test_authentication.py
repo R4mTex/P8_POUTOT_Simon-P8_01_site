@@ -12,8 +12,8 @@ from pyvirtualdisplay import Display
 
 class TestAuthentification(StaticLiveServerTestCase):
     def setUp(self):
-        self.display = Display(visible=0, size=(800, 800))  
-        self.display.start()
+        #self.display = Display(visible=0, size=(800, 800))  
+        #self.display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("signup"))
 
