@@ -12,12 +12,9 @@ from pyvirtualdisplay import Display
 
 class TestAuthentification(StaticLiveServerTestCase):
     def setUp(self):
-        #self.browser = webdriver.Chrome("tests/functional_tests/chromedriver")
-        display = Display(visible=0, size=(800, 800))  
-        display.start()
+        self.display = Display(visible=0, size=(800, 800))  
+        self.display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-        self.browser.maximize_window() # For maximizing window
-        self.browser.implicitly_wait(20) # gives an implicit wait for 20 seconds
         self.browser.get(self.live_server_url + reverse("signup"))
 
         username = self.browser.find_element("id", "id_username")
@@ -39,55 +36,47 @@ class TestAuthentification(StaticLiveServerTestCase):
         self.assertEqual(self.browser.current_url, self.live_server_url + reverse("home"))
 
     def test_login(self):
-        display = Display(visible=0, size=(800, 800))  
-        display.start()
+        self.display = Display(visible=0, size=(800, 800))  
+        self.display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("login"))
-        try:
-            element = WebDriverWait(self.browser, 10).until(
-                EC.presence_of_element_located((By.ID, "id_password"))
-            )
-        finally:
-            username = self.browser.find_element("id", "id_username")
-            username.send_keys("R4mTex")
-            password = self.browser.find_element("id", "id_password")
-            password.send_keys("Qwertyuiop1")
-            login = self.browser.find_element("id", "send_button")
-            login.click()
 
-            self.assertEqual(self.browser.find_element("id", "title").text, "Du gras, oui, mais de qualité !")
-            self.assertEqual(self.browser.current_url, self.live_server_url + reverse("home"))
+        username = self.browser.find_element("id", "id_username")
+        username.send_keys("R4mTex")
+        password = self.browser.find_element("id", "id_password")
+        password.send_keys("Qwertyuiop1")
+        login = self.browser.find_element("id", "send_button")
+        login.click()
+
+        self.assertEqual(self.browser.find_element("id", "title").text, "Du gras, oui, mais de qualité !")
+        self.assertEqual(self.browser.current_url, self.live_server_url + reverse("home"))
 
     def test_logout(self):
-        display = Display(visible=0, size=(800, 800))  
-        display.start()
+        self.display = Display(visible=0, size=(800, 800))  
+        self.display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("login"))
-        try:
-            element = WebDriverWait(self.browser, 10).until(
-                EC.presence_of_element_located((By.ID, "id_password"))
-            )
-        finally:
-            username = self.browser.find_element("id", "id_username")
-            username.send_keys("R4mTex")
-            password = self.browser.find_element("id", "id_password")
-            password.send_keys("Qwertyuiop1")
-            login = self.browser.find_element("id", "send_button")
-            login.click()
 
-            logout = self.browser.find_element("xpath", "//a[contains(@href, '/logout/')]")
-            logout.click()
+        username = self.browser.find_element("id", "id_username")
+        username.send_keys("R4mTex")
+        password = self.browser.find_element("id", "id_password")
+        password.send_keys("Qwertyuiop1")
+        login = self.browser.find_element("id", "send_button")
+        login.click()
 
-            # self.assertNotEqual(self.browser.page_source.find("LOGIN"), -1)
-            self.assertEqual(
-                self.browser.current_url, self.live_server_url + reverse("login")
-            )
+        logout = self.browser.find_element("xpath", "//a[contains(@href, '/logout/')]")
+        logout.click()
+
+        # self.assertNotEqual(self.browser.page_source.find("LOGIN"), -1)
+        self.assertEqual(
+            self.browser.current_url, self.live_server_url + reverse("login")
+        )
 
 
 class TestAuthentificationFailed(StaticLiveServerTestCase):
     def setUp(self):
-        display = Display(visible=0, size=(800, 800))  
-        display.start()
+        self.display = Display(visible=0, size=(800, 800))  
+        self.display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("signup"))
 
