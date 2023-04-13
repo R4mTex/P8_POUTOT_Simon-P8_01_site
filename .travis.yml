@@ -15,7 +15,7 @@ branches:
   only:
     - main
 
-#env: DJANGO_SETTINGS_MODULE="pur_beurre_app.settings.circle"
+env: DJANGO_SETTINGS_MODULE="pur_beurre_app.settings.travis"
 
 services:
     - postgresql
