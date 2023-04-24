@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from product.scripts.downloader import Downloader
-from product.models import Product, Category, Favorite
+from product.models import Product, Category
 from django.db import IntegrityError
 from tqdm import tqdm
 
@@ -18,9 +18,7 @@ class Command(BaseCommand):
         Product.objects.all().delete()
         print("Products Deleted.")
         Category.objects.all().delete()
-        Favorite.objects.all().delete()
-        print("""Categories Deleted.
-Favorites Deleted.\n
+        print("""Categories Deleted.\n
 Download Products And Categories From OpenFoodFacts In Progress.\n""")
 
         nb_pages = kwargs['nb_pages']
