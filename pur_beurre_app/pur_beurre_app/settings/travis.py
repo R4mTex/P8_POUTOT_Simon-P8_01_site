@@ -3,7 +3,7 @@ from . import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pur_beurre_app',
+        'NAME': '',
         'USER': 'postgres',
         'PASSWORD': '',
         'HOST': '',
