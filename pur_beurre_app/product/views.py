@@ -3,16 +3,17 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 from product.models import Product, Favorite
 from product.scripts.parser import Parser
-from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
+from authentication.models import User
+from django.urls import reverse
+
 
 
 # Create your views here.
 class Search_product(LoginRequiredMixin, View):
     template_name = 'product/search_product.html'
-    login_url = settings.LOGIN_URL
 
-    def get(self, request):
+    def get(self, request, id_user):
         question = request.GET.get('question', '')
         question_parsed = Parser.parse(question)
 
@@ -55,52 +56,51 @@ class Search_product(LoginRequiredMixin, View):
 
             if len(substitutes) > 6:
                 substitutes = random.sample(substitutes, 6)
-
             return render(request, self.template_name, context={'product': product_values,
                                                                 'substitutes': substitutes, })
         else:
             return redirect('home')
 
-    def post(self, request):
+    def post(self, request, id_user):
         substitute_id = request.POST.get("submit")
         save_product = Product.objects.get(id=substitute_id)
 
-        all_favorites = Favorite.objects.all()
+        user_favorites = Favorite.objects.filter(user=id_user)
 
         favorites_names = []
-        for favorite in range(len(all_favorites)):
-            name = all_favorites[favorite].product.name
-            favorites_names.append(name)
+        for favorite in range(len(user_favorites)):
+            favorites_names.append(user_favorites[favorite].product.name)
 
         if save_product.name not in favorites_names:
             new_favorite = Favorite()
             new_favorite.product = save_product
+            new_favorite.user = User.objects.get(id=id_user)
             new_favorite.save()
 
-            all_favorites = Favorite.objects.all()
+            user_favorites = Favorite.objects.filter(user=id_user)
+
+            all_favorites = []
+            for favorite in range(len(user_favorites)):
+                all_favorites.append(user_favorites[favorite].product)
 
             favorites = []
             for favorite in range(len(all_favorites)):
                 favorite_product = {
-                    'id': all_favorites[favorite].product.id,
-                    'name': all_favorites[favorite].product.name,
-                    'category': str(all_favorites[favorite].product.category.all()[0]),
-                    'url': all_favorites[favorite].product.url,
-                    'img': all_favorites[favorite].product.img,
-                    'nutriscore': all_favorites[favorite].product.nutriscore,
+                    'id': all_favorites[favorite].id,
+                    'name': all_favorites[favorite].name,
+                    'category': str(all_favorites[favorite].category.all()[0]),
+                    'url': all_favorites[favorite].url,
+                    'img': all_favorites[favorite].img,
+                    'nutriscore': all_favorites[favorite].nutriscore,
                 }
                 favorites.append(favorite_product)
-
-            return redirect('favorite-product')
-        else:
-            return redirect('favorite-product')
+        return redirect(reverse('favorite-product', kwargs={'id_user': id_user}))
 
 
 class Product_detail(LoginRequiredMixin, View):
     template_name = 'product/product_detail.html'
-    login_url = settings.LOGIN_URL
 
-    def get(self, request, id):
+    def get(self, request, id_user, id):
         product_detail = Product.objects.get(id=id)
         product_detail_nutriments = product_detail.nutriments
         nutriments = {
@@ -119,79 +119,91 @@ class Product_detail(LoginRequiredMixin, View):
         }
         return render(request, self.template_name, {'product_detail': product_detail, 'nutriments': nutriments})
 
-    def post(self, request, id):
+    def post(self, request, id_user, id):
         save_product = Product.objects.get(id=id)
-
-        all_favorites = Favorite.objects.all()
+        
+        user_favorites = Favorite.objects.filter(user=id_user)
 
         favorites_names = []
-        for favorite in range(len(all_favorites)):
-            name = all_favorites[favorite].product.name
-            favorites_names.append(name)
+        for favorite in range(len(user_favorites)):
+            favorites_names.append(user_favorites[favorite].product.name)
 
         if save_product.name not in favorites_names:
             new_favorite = Favorite()
             new_favorite.product = save_product
+            new_favorite.user = User.objects.get(id=id_user)
             new_favorite.save()
 
-            all_favorites = Favorite.objects.all()
+        user_favorites = Favorite.objects.filter(user=id_user)
 
-            favorites = []
-            for favorite in range(len(all_favorites)):
-                favorite_product = {
-                    'id': all_favorites[favorite].product.id,
-                    'name': all_favorites[favorite].product.name,
-                    'category': str(all_favorites[favorite].product.category.all()[0]),
-                    'url': all_favorites[favorite].product.url,
-                    'img': all_favorites[favorite].product.img,
-                    'nutriscore': all_favorites[favorite].product.nutriscore,
-                }
-                favorites.append(favorite_product)
-            return redirect('favorite-product')
-        else:
-            return redirect('favorite-product')
-
-
-class Favorite_product(LoginRequiredMixin, View):
-    template_name = 'product/favorite_product.html'
-    login_url = settings.LOGIN_URL
-
-    def get(self, request):
-        all_favorites = Favorite.objects.all()
+        all_favorites = []
+        for favorite in range(len(user_favorites)):
+            all_favorites.append(user_favorites[favorite].product)
 
         favorites = []
         for favorite in range(len(all_favorites)):
             favorite_product = {
-                'id': all_favorites[favorite].product.id,
-                'name': all_favorites[favorite].product.name,
-                'category': str(all_favorites[favorite].product.category.all()[0]),
-                'url': all_favorites[favorite].product.url,
-                'img': all_favorites[favorite].product.img,
-                'nutriscore': all_favorites[favorite].product.nutriscore,
+                'id': all_favorites[favorite].id,
+                'name': all_favorites[favorite].name,
+                'category': str(all_favorites[favorite].category.all()[0]),
+                'url': all_favorites[favorite].url,
+                'img': all_favorites[favorite].img,
+                'nutriscore': all_favorites[favorite].nutriscore,
+            }
+            favorites.append(favorite_product)
+        return redirect(reverse('favorite-product', kwargs={'id_user': id_user}))
+
+
+class Favorite_product(LoginRequiredMixin, View):
+    template_name = 'product/favorite_product.html'
+
+    def get(self, request, id_user):
+        user_favorites = Favorite.objects.filter(user=id_user)
+
+        all_favorites = []
+        for favorite in range(len(user_favorites)):
+            all_favorites.append(user_favorites[favorite].product)
+
+        favorites = []
+        for favorite in range(len(all_favorites)):
+            favorite_product = {
+                'id': all_favorites[favorite].id,
+                'name': all_favorites[favorite].name,
+                'category': str(all_favorites[favorite].category.all()[0]),
+                'url': all_favorites[favorite].url,
+                'img': all_favorites[favorite].img,
+                'nutriscore': all_favorites[favorite].nutriscore,
             }
             favorites.append(favorite_product)
 
         if len(favorites) > 6:
             favorites = random.sample(favorites, 6)
-
         return render(request, self.template_name, context={'favorites': favorites, })
 
-    def post(self, request):
+    def post(self, request, id_user):
         favorite_id = int(request.POST.get("submit"))
-        Favorite.objects.filter(product=favorite_id).delete()
 
-        all_favorites = Favorite.objects.all()
+        user_favorites = Favorite.objects.filter(user=id_user)
+
+        for favorite in range(len(user_favorites)):
+            if user_favorites[favorite].product.id == favorite_id:
+                Favorite.objects.filter(id=user_favorites[favorite].id).delete()
+
+        user_favorites = Favorite.objects.filter(user=id_user)
+
+        all_favorites = []
+        for favorite in range(len(user_favorites)):
+            all_favorites.append(user_favorites[favorite].product)
 
         favorites = []
         for favorite in range(len(all_favorites)):
             favorite_product = {
-                'id': all_favorites[favorite].product.id,
-                'name': all_favorites[favorite].product.name,
-                'category': str(all_favorites[favorite].product.category.all()[0]),
-                'url': all_favorites[favorite].product.url,
-                'img': all_favorites[favorite].product.img,
-                'nutriscore': all_favorites[favorite].product.nutriscore,
+                'id': all_favorites[favorite].id,
+                'name': all_favorites[favorite].name,
+                'category': str(all_favorites[favorite].category.all()[0]),
+                'url': all_favorites[favorite].url,
+                'img': all_favorites[favorite].img,
+                'nutriscore': all_favorites[favorite].nutriscore,
             }
             favorites.append(favorite_product)
-
         return render(request, self.template_name, context={'favorites': favorites, })

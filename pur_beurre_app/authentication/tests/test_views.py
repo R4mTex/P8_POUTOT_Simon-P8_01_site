@@ -37,7 +37,7 @@ def test_user_profile_view():
                              password='',
                              )
     client.login(username='TestUser', email='', password='')
-    path = reverse('user-profile', kwargs={'id': 1})
+    path = reverse('user-profile', kwargs={'id_user': 1})
     response = client.get(path)
 
     expected_value = 200
@@ -46,22 +46,25 @@ def test_user_profile_view():
 
 
 @pytest.mark.django_db
-def test_user_profile_route():
-    url = reverse('user-profile', args=[1])
-    assert resolve(url).func.view_class, User_profile
+class Test_user_profiles_view():
+    template_name = 'authentication/user_profile.html' 
 
-    credentials = {
-        'username': 'TestUser',
-        'email': 'testuser@testing.com',
-        'password1': 'TestPassword1',
-        'password2': 'TestPassword1'
-    }
-    client.post(reverse('signup'), credentials)
-    client.post(reverse('login'), {'username': 'TestUser', 'password': 'TestPassword1'})
+    def test_get_user_profile(self):
+        url = reverse('user-profile', args=[1])
+        assert resolve(url).func.view_class, User_profile
 
-    response = client.get(reverse('user-profile', args=[1]))
-    assert response.status_code == 200
-    assertTemplateUsed(response, 'authentication/user_profile.html')
+        credentials = {
+            'username': 'TestUser',
+            'email': 'testuser@testing.com',
+            'password1': 'TestPassword1',
+            'password2': 'TestPassword1'
+        }
+        client.post(reverse('signup'), credentials)
+        client.post(reverse('login'), {'username': 'TestUser', 'password': 'TestPassword1'})
+
+        response = client.get(reverse('user-profile', args=[1]))
+        assert response.status_code == 200
+        assertTemplateUsed(response, self.template_name)
 
 
 @pytest.mark.django_db

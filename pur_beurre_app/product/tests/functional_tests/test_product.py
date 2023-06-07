@@ -1,16 +1,12 @@
-
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-from pyvirtualdisplay import Display
 
 
 class TestHome(StaticLiveServerTestCase):
     def setUp(self):
-        self.display = Display(visible=0, size=(800, 800))  
-        self.display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("signup"))
 
@@ -55,15 +51,15 @@ class TestHome(StaticLiveServerTestCase):
         signup = self.browser.find_element("id", "send_button")
         signup.click()
 
-        self.browser.get(self.live_server_url + reverse("favorite-product"))
+        self.browser.get(self.live_server_url + reverse("favorite-product", kwargs={'id_user': 1}))
         self.assertEqual(
             self.browser.current_url,
-            self.live_server_url + reverse("favorite-product"),
+            self.live_server_url + reverse("favorite-product", kwargs={'id_user': 1}),
         )
 
     def test_home_with_not_logged_user(self):
-        self.browser.get(self.live_server_url + reverse("favorite-product"))
+        self.browser.get(self.live_server_url + reverse("favorite-product", kwargs={'id_user': 1}))
         self.assertEqual(
             self.browser.current_url,
-            self.live_server_url + reverse("login") + "?next=/favorite-product/",
+            self.live_server_url + reverse("login") + "?next=/favorite-product/1/",
         )

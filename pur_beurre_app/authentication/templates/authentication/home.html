@@ -74,7 +74,7 @@
                 <div class="d-flex align-items-center justify-content-center flex-column" id="section_search">
                     <h1 class="card-title" id="title">Du gras, oui, mais de qualité !</h1>
                     <h2 class="card-subtitle" id="subtitle">Trouvez un produit de substitution pour ceux que vous consommez tous les jours.</h2>
-                    <form class="form" role="form" action="{% url 'search-product' %}">
+                    <form class="form" role="form" action="{% url 'search-product' user.id %}">
                         <input class="mt-5 p-2" type="search" name="question" id="form_input_product" value=""
                             placeholder="Recherchez un produit de substitution." size="40" autofocus required>
                         <input class="btn btn-primary btn-ms" type="submit" value="Chercher" id="search_button">

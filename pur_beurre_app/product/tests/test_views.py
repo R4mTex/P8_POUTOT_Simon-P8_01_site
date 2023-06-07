@@ -27,7 +27,7 @@ def test_get_product_detail_view():
                            nutriments={},
                            )
 
-    path = reverse('product-detail', kwargs={'id': 1})
+    path = reverse('product-detail', kwargs={'id_user': 1, 'id': 1})
     response = client.get(path)
 
     assert response.status_code == 200
@@ -58,11 +58,11 @@ def test_post_product_detail_view():
     new_product.save()
     new_category = new_product.category.create(name=new_category.name)
 
-    path = reverse('product-detail', kwargs={'id': 1})
+    path = reverse('product-detail', kwargs={'id_user': 1, 'id': 1})
     response = client.post(path)
 
     assert response.status_code == 302
-    assert response.url == reverse('favorite-product')
+    assert response.url == reverse('favorite-product', kwargs={'id_user': 1})
 
 # -------------------------------------------------------------------------------------------- #
 
@@ -91,7 +91,7 @@ def test_get_search_product_view():
     new_product.save()
     new_category = new_product.category.create(name=new_category.name)
 
-    path = reverse('search-product')
+    path = reverse('search-product', kwargs={'id_user': 1})
     response = client.get(path, {'question': Product.objects.get(name='TestProduct')})
 
     assert response.status_code == 200
@@ -122,7 +122,7 @@ def test_post_search_product_view():
     new_product.save()
     new_category = new_product.category.create(name=new_category.name)
 
-    path = reverse('search-product')
+    path = reverse('search-product', kwargs={'id_user': 1})
     with pytest.raises(Product.DoesNotExist):
         response = client.post(path)
 
@@ -141,7 +141,7 @@ def test_get_favorite_product_view():
                              password='',
                              )
     client.login(username='Test User', email='', password='')
-    path = reverse('favorite-product')
+    path = reverse('favorite-product', kwargs={'id_user': 1})
     response = client.get(path)
 
     assert response.status_code == 200
@@ -158,10 +158,10 @@ def test_favorite_route():
                              )
     client.login(username='Test User', email='', password='')
 
-    url = reverse('favorite-product')
+    url = reverse('favorite-product', kwargs={'id_user': 1})
     assert resolve(url).func.view_class, Favorite_product
 
-    response = client.get(reverse('favorite-product'))
+    response = client.get(reverse('favorite-product', kwargs={'id_user': 1}))
     assert response.status_code == 200
     assertTemplateUsed(response, 'product/favorite_product.html')
 

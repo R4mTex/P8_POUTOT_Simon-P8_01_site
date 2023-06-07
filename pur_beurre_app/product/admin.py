@@ -15,4 +15,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Favorite)
 class FavoriteAdmin(admin.ModelAdmin):
-    list_display = ('id', 'product',)
+    list_display = ('id', 'user', 'product',)

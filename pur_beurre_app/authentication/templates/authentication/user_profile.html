@@ -17,6 +17,7 @@
     }
     #user_info {
         font-size: x-large;
+        margin-bottom: 20px;
     }
     .value_info {
         color: #E8A75D;
@@ -29,21 +30,138 @@
         text-decoration: none;
         margin: 50px 0 100px 0;
     }
+    [name="icon_avatar"] {
+        height: 400px;
+        width: 400px;
+    }
+    #carouselControls {
+        width: 600px;
+        height: 430px;
+        margin-left: 80px;
+        margin-top: -40px;
+    }
+    .carousel-indicators {
+        position: relative;
+        margin-left: 112px;
+        top: 460px;
+    }
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+        background-color: #345A61;
+        margin-top: 170px;
+        border: solid black 1px;
+    }
+    #sentence_select_avatar {
+        font-size: x-large;
+        font-weight: bold;
+        color: #345A61;
+        font-family: "Scope One", sans-serif;
+        margin-left: 175px;
+        text-decoration: underline;
+    }
+    [name="icon_avatar"]:focus {
+        border-radius: 30%;
+        border: solid #345A61 7px;
+    }
+    button {
+        margin-left: 75px;
+        background: none;
+        border-radius: 30%;
+        border: none;
+    }
+    
 </style>
 
 <div class="row">
     <div class="col-12">
         <div class="card mt-4 border-dark shadow-lg rounded">
             <img class="card-top-home" src="/static/images/fond_page_user_profile.jpg" alt="Fond page profil" height="500">
-            <div class="card-img-overlay d-inline-flex align-items-center justify-content-center">
-                <div class="info box" id="user_info">
-                    <p>Nom d'utilisateur : <span class="value_info">{{ user.username }}</span></p>
+            <div class="col-12 card-img-overlay d-flex flex-row-reverse">
+                <div class="col-4 d-inline-flex align-items-start justify-content-end">
+                    <div class="info box">
+                        <p>Dernière connexion : <span class="value_info">{{ user.last_login }}</span></p>
+                        <p>Date de création du profil : <span class="value_info">{{ user.date_joined }}</span></p>
+                    </div>
                 </div>
-            </div>
-            <div class="card-img-overlay d-inline-flex align-items-start justify-content-end">
-                <div class="info box">
-                    <p>Dernière connexion : <span class="value_info">{{ user.last_login }}</span></p>
-                    <p>Date de création du profil : <span class="value_info">{{ user.date_joined }}</span></p>
+                <div class="col-4 d-inline-flex align-items-end justify-content-center">
+                    <div class="info box" id="user_info">
+                        <p>Nom d'utilisateur : <span class="value_info">{{ user.username }}</span></p>
+                    </div>
+                </div>
+                <div class="col-4 d-inline-flex align-items-center justify-content-start">
+                    <div id="carouselControls" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselControls" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselControls" data-slide-to="1"></li>
+                            <li data-target="#carouselControls" data-slide-to="2"></li>
+                            <li data-target="#carouselControls" data-slide-to="3"></li>
+                            <li data-target="#carouselControls" data-slide-to="4"></li>
+                            <li data-target="#carouselControls" data-slide-to="5"></li>
+                            <li data-target="#carouselControls" data-slide-to="6"></li>
+                            <li data-target="#carouselControls" data-slide-to="7"></li>
+                            <li data-target="#carouselControls" data-slide-to="8"></li>
+                            <li data-target="#carouselControls" data-slide-to="9"></li>
+                            <li data-target="#carouselControls" data-slide-to="10"></li>
+                        </ol>
+                        <form action="" method="post" novalidate id="form_carousel">
+                            {{ form.as_p }}
+                            {% csrf_token %}
+                            <span id="sentence_select_avatar">Select your Avatar</span>
+                            <div class="carousel-inner" id="carousel_button">
+                                <div class="carousel-item active" data-interval="8500">
+                                    <button type="submit" name="icon_avatar" value="icon_avatar_1" id="id_icon_avatar_1"><img src="/static/images/icon_avatar_1.png"
+                                        class="d-block w-100" alt="Icon Avatar 1"></button>
+                                </div>
+                                <div class="carousel-item" data-interval="8500">
+                                    <button type="submit" name="icon_avatar" value="icon_avatar_2"><img src="/static/images/icon_avatar_2.png"
+                                            class="d-block w-100" alt="Icon Avatar 2"></button>
+                                </div>
+                                <div class="carousel-item" data-interval="8500">
+                                    <button type="submit" name="icon_avatar" value="icon_avatar_3"><img src="/static/images/icon_avatar_3.png"
+                                            class="d-block w-100" alt="Icon Avatar 3"></button>
+                                </div>
+                                <div class="carousel-item" data-interval="8500">
+                                    <button type="submit" name="icon_avatar" value="icon_avatar_4"><img src="/static/images/icon_avatar_4.png"
+                                            class="d-block w-100" alt="Icon Avatar 4"></button>
+                                </div>
+                                <div class="carousel-item" data-interval="8500">
+                                    <button type="submit" name="icon_avatar" value="icon_avatar_5"><img src="/static/images/icon_avatar_5.png"
+                                            class="d-block w-100" alt="Icon Avatar 5"></button>
+                                </div>
+                                <div class="carousel-item" data-interval="8500">
+                                    <button type="submit" name="icon_avatar" value="icon_avatar_6"><img src="/static/images/icon_avatar_6.png"
+                                            class="d-block w-100" alt="Icon Avatar 6"></button>
+                                </div>
+                                <div class="carousel-item" data-interval="8500">
+                                    <button type="submit" name="icon_avatar" value="icon_avatar_7"><img src="/static/images/icon_avatar_7.png"
+                                            class="d-block w-100" alt="Icon Avatar 7"></button>
+                                </div>
+                                <div class="carousel-item" data-interval="8500">
+                                    <button type="submit" name="icon_avatar" value="icon_avatar_8"><img src="/static/images/icon_avatar_8.png"
+                                            class="d-block w-100" alt="Icon Avatar 8"></button>
+                                </div>
+                                <div class="carousel-item" data-interval="8500">
+                                    <button type="submit" name="icon_avatar" value="icon_avatar_9"><img src="/static/images/icon_avatar_9.png"
+                                            class="d-block w-100" alt="Icon Avatar 9"></button>
+                                </div>
+                                <div class="carousel-item" data-interval="8500">
+                                    <button type="submit" name="icon_avatar" value="icon_avatar_10"><img src="/static/images/icon_avatar_10.png"
+                                            class="d-block w-100" alt="Icon Avatar 10"></button>
+                                </div>
+                                <div class="carousel-item" data-interval="8500">
+                                    <button type="submit" name="icon_avatar" value="icon_avatar_11"><img src="/static/images/icon_avatar_11.png"
+                                            class="d-block w-100" alt="Icon Avatar 11"></button>
+                                </div>
+                            </div>
+                        </form>
+                        <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Précédent</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Suivant</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,4 +178,5 @@
         <img class="card mb-5 border-dark shadow-lg rounded" src="\static\images\colette-9.jpg">
     </div>
 </div>
+
 {% endblock %}

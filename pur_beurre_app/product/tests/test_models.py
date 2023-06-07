@@ -1,5 +1,5 @@
 import pytest
-
+from authentication.models import User
 from product.models import Product, Category, Favorite
 
 
@@ -28,6 +28,9 @@ def test_category_model():
 
 @pytest.mark.django_db
 def test_favorite_model():
+    User.objects.create(username='Test',
+                        password='Test1test1',
+                        email='test@test.com')
     Product.objects.create(name='Test Product/Favorite',
                            description='',
                            store='',
@@ -36,7 +39,7 @@ def test_favorite_model():
                            nutriscore='',
                            nutriments={},
                            )
-    favorite = Favorite.objects.create(product=Product.objects.get(name='Test Product/Favorite'))
+    favorite = Favorite.objects.create(product=Product.objects.get(name='Test Product/Favorite'), user=User.objects.get(username='Test'))
 
-    expected_value = 'Test Product/Favorite'
+    expected_value = 'Test'
     assert str(favorite) == expected_value

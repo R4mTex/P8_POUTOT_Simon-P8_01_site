@@ -14,7 +14,9 @@ import os
 import django_heroku
 import dj_database_url
 import dotenv
+import environ
 from pathlib import Path
+from django.core.mail import send_mail  
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -67,6 +69,14 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+PASSWORD_HASHERS = [
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
+    "django.contrib.auth.hashers.ScryptPasswordHasher",
+]
+
 ROOT_URLCONF = "pur_beurre_app.urls"
 
 TEMPLATES = [
@@ -104,8 +114,8 @@ DATABASES = {
 """
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'pur_beurre_app',
         'USER': 'admin',
         'PASSWORD': 'Kundera1',
         'HOST': 'localhost',
@@ -171,3 +181,15 @@ django_heroku.settings(locals())
 # This is new
 options = DATABASES['default'].get('OPTIONS', {})
 options.pop('sslmode', None)
+
+
+env = environ.Env()
+environ.Env.read_env()
+
+# Previous settings ...
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')

@@ -9,7 +9,7 @@ def test_user_profile_url():
                         email='',
                         password='',
                         )
-    path = reverse('user-profile', kwargs={'id': 1})
+    path = reverse('user-profile', kwargs={'id_user': 1})
 
     assert path == "/user-profile/1/"
     assert resolve(path).view_name == "user-profile"

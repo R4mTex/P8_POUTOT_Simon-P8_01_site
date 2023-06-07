@@ -1,12 +1,12 @@
 from django.db import models
-
+from authentication.models import User
 
 # Create your models here.
 class Category(models.Model):
     name = models.fields.TextField(max_length=1024,)
 
     class Meta:
-        ordering = ['name']
+        ordering = ['id']
 
     def __str__(self):
         return f'{self.name}'
@@ -23,17 +23,18 @@ class Product(models.Model):
     nutriments = models.JSONField()
 
     class Meta:
-        ordering = ['name']
+        ordering = ['id']
 
     def __str__(self):
         return f'{self.name}'
 
 
 class Favorite(models.Model):
-    product = models.ForeignKey('Product', related_name='favorites', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='favorites', on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ['product']
+        ordering = ['id']
 
     def __str__(self):
-        return f'{self.product}'
+        return f'{self.user}'

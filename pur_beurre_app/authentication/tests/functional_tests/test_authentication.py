@@ -1,16 +1,14 @@
-
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-from pyvirtualdisplay import Display
+from selenium.webdriver.common.by import By
+
 
 
 class TestAuthentification(StaticLiveServerTestCase):
     def setUp(self):
-        self.display = Display(visible=0, size=(800, 800))  
-        self.display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("signup"))
 
@@ -33,8 +31,6 @@ class TestAuthentification(StaticLiveServerTestCase):
         self.assertEqual(self.browser.current_url, self.live_server_url + reverse("home"))
 
     def test_login(self):
-        self.display = Display(visible=0, size=(800, 800))  
-        self.display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("login"))
 
@@ -49,8 +45,6 @@ class TestAuthentification(StaticLiveServerTestCase):
         self.assertEqual(self.browser.current_url, self.live_server_url + reverse("home"))
 
     def test_logout(self):
-        self.display = Display(visible=0, size=(800, 800))  
-        self.display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("login"))
 
@@ -72,8 +66,6 @@ class TestAuthentification(StaticLiveServerTestCase):
 
 class TestAuthentificationFailed(StaticLiveServerTestCase):
     def setUp(self):
-        self.display = Display(visible=0, size=(800, 800))  
-        self.display.start()
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.browser.get(self.live_server_url + reverse("signup"))
 
@@ -144,3 +136,59 @@ class TestAuthentificationFailed(StaticLiveServerTestCase):
         self.assertEqual(
             self.browser.current_url, self.live_server_url + reverse("signup")
         )
+
+class TestAuthentification_select_avatar(StaticLiveServerTestCase):
+    def setUp(self):
+        self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        self.browser.get(self.live_server_url + reverse("signup"))
+
+        username = self.browser.find_element("id", "id_username")
+        username.send_keys("R4mTex")
+        email = self.browser.find_element("id", "id_email")
+        email.send_keys("test@test.com")
+        password1 = self.browser.find_element("id", "id_password1")
+        password1.send_keys("Qwertyuiop1")
+        password2 = self.browser.find_element("id", "id_password2")
+        password2.send_keys("Qwertyuiop1")
+        signup = self.browser.find_element("id", "send_button")
+        signup.click()
+
+    def tearDown(self):
+        self.browser.close()
+
+    def test_signup(self):
+        self.assertEqual(self.browser.find_element("id", "title").text, "Du gras, oui, mais de qualité !")
+        self.assertEqual(self.browser.current_url, self.live_server_url + reverse("home"))
+
+    def test_login(self):
+        self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        self.browser.get(self.live_server_url + reverse("login"))
+
+        username = self.browser.find_element("id", "id_username")
+        username.send_keys("R4mTex")
+        password = self.browser.find_element("id", "id_password")
+        password.send_keys("Qwertyuiop1")
+        login = self.browser.find_element("id", "send_button")
+        login.click()
+
+        self.assertEqual(self.browser.find_element("id", "title").text, "Du gras, oui, mais de qualité !")
+        self.assertEqual(self.browser.current_url, self.live_server_url + reverse("home"))
+
+    def test_select_avatar(self):
+        self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        self.browser.get(self.live_server_url + reverse("login"))
+
+        username = self.browser.find_element("id", "id_username")
+        username.send_keys("R4mTex")
+        password = self.browser.find_element("id", "id_password")
+        password.send_keys("Qwertyuiop1")
+        login = self.browser.find_element("id", "send_button")
+        login.click()
+
+        self.browser.get(self.live_server_url + reverse("user-profile", kwargs={'id_user': 1}))
+
+        # avatar_selected = self.browser.find_element(By.ID, 'button')
+        # avatar_selected[0].click()
+        
+        # self.assertEqual(self.browser.find_element("id", "user_profile_picture").src, "/static/images/logo_user.png")
+        self.assertEqual(self.browser.current_url, self.live_server_url + reverse("user-profile", kwargs={'id_user': 1}))

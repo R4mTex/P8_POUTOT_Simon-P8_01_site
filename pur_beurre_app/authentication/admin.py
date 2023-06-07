@@ -4,4 +4,4 @@ from authentication.models import User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'username', 'email', 'password',)
+    list_display = ('id', 'username', 'email', 'profile_picture')
