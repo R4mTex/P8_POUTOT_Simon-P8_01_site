@@ -1,6 +1,7 @@
 import pytest
 
 from django.urls import reverse, resolve
+from django.shortcuts import render, redirect 
 from django.test import Client
 from authentication.models import User
 from pytest_django.asserts import assertTemplateUsed
@@ -46,7 +47,7 @@ def test_user_profile_view():
 
 
 @pytest.mark.django_db
-class Test_user_profiles_view():
+class Test_user_profile_view():
     template_name = 'authentication/user_profile.html' 
 
     def test_get_user_profile(self):
@@ -63,6 +64,42 @@ class Test_user_profiles_view():
         client.post(reverse('login'), {'username': 'TestUser', 'password': 'TestPassword1'})
 
         response = client.get(reverse('user-profile', args=[1]))
+        assert response.status_code == 200
+        assertTemplateUsed(response, self.template_name)
+
+    def test_post_user_profile(self):
+        credentials = {
+            'username': 'TestUser',
+            'email': 'testuser@testing.com',
+            'password1': 'TestPassword1',
+            'password2': 'TestPassword1',
+        }
+        client.post(reverse('signup'), credentials)
+        client.post(reverse('login'), {'username': 'TestUser', 'password': 'TestPassword1'})
+
+        user = User.objects.get(username='TestUser')
+        
+        img_id = 0
+        img_src = {
+            'icon_avatar_1': '/static/images/icon_avatar_1.png',
+            'icon_avatar_2': '/static/images/icon_avatar_2.png',
+            'icon_avatar_3': '/static/images/icon_avatar_3.png',
+            'icon_avatar_4': '/static/images/icon_avatar_4.png',
+            'icon_avatar_5': '/static/images/icon_avatar_5.png',
+            'icon_avatar_6': '/static/images/icon_avatar_6.png',
+            'icon_avatar_7': '/static/images/icon_avatar_7.png',
+            'icon_avatar_8': '/static/images/icon_avatar_8.png',
+            'icon_avatar_9': '/static/images/icon_avatar_9.png',
+            'icon_avatar_10': '/static/images/icon_avatar_10.png',
+            'icon_avatar_11': '/static/images/icon_avatar_11.png',
+        }
+        user.profile_picture = list(img_src)[img_id]
+        user.save()
+
+        user = User.objects.get(username='TestUser')
+
+        response = client.post('/user-profile/1/', data={'icon_avatar': list(img_src)[img_id]})
+
         assert response.status_code == 200
         assertTemplateUsed(response, self.template_name)
 

@@ -173,22 +173,3 @@ class TestAuthentification_select_avatar(StaticLiveServerTestCase):
 
         self.assertEqual(self.browser.find_element("id", "title").text, "Du gras, oui, mais de qualité !")
         self.assertEqual(self.browser.current_url, self.live_server_url + reverse("home"))
-
-    def test_select_avatar(self):
-        self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-        self.browser.get(self.live_server_url + reverse("login"))
-
-        username = self.browser.find_element("id", "id_username")
-        username.send_keys("R4mTex")
-        password = self.browser.find_element("id", "id_password")
-        password.send_keys("Qwertyuiop1")
-        login = self.browser.find_element("id", "send_button")
-        login.click()
-
-        self.browser.get(self.live_server_url + reverse("user-profile", kwargs={'id_user': 1}))
-
-        # avatar_selected = self.browser.find_element(By.ID, 'button')
-        # avatar_selected[0].click()
-        
-        # self.assertEqual(self.browser.find_element("id", "user_profile_picture").src, "/static/images/logo_user.png")
-        self.assertEqual(self.browser.current_url, self.live_server_url + reverse("user-profile", kwargs={'id_user': 1}))
