@@ -103,7 +103,7 @@ WSGI_APPLICATION = "pur_beurre_app.wsgi.application"
 
 # DATABASES = {}
 # DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-"""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -122,7 +122,7 @@ DATABASES = {
         'PORT': '',
     }
 }
-
+"""
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 
