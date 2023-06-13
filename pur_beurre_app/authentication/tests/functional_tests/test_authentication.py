@@ -6,7 +6,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 
 
-
 class TestAuthentification(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
