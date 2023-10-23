@@ -12,11 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 import django_heroku
-import dj_database_url
 import dotenv
 import environ
-from pathlib import Path
-from django.core.mail import send_mail  
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -182,7 +179,6 @@ django_heroku.settings(locals())
 options = DATABASES['default'].get('OPTIONS', {})
 options.pop('sslmode', None)
 
-
 env = environ.Env()
 environ.Env.read_env()
 
@@ -192,3 +188,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+
+"sentry sdk"
